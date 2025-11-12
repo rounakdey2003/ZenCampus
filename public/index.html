@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZenCampus - Sign In</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        
+        <div class="left-section">
+            <div class="illustration">
+                <div class="slides">
+                    
+                    <div class="slide active" data-index="0" aria-hidden="false">
+                        <svg viewBox="0 0 720 480" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <rect width="100%" height="100%" rx="20" fill="#e8f5e9" />
+                            <g transform="translate(180,80)">
+                                <rect x="0" y="0" width="360" height="240" rx="16" fill="#fff" stroke="#cfead8" />
+                                <rect x="0" y="0" width="360" height="48" rx="12" fill="#81c784" />
+                                <text x="180" y="34" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">Slot Scheduler</text>
+                                <g transform="translate(24,72)" fill="#f1f8f4">
+                                    <rect x="0" y="0" width="72" height="40" rx="8" />
+                                    <rect x="88" y="0" width="72" height="40" rx="8" />
+                                    <rect x="176" y="0" width="72" height="40" rx="8" />
+                                    <rect x="264" y="0" width="72" height="40" rx="8" />
+                                </g>
+                                <rect x="88" y="72" width="72" height="40" rx="8" fill="#81c784" />
+                            </g>
+                        </svg>
+                    </div>
+
+                    
+                    <div class="slide" data-index="1" aria-hidden="true">
+                        <svg viewBox="0 0 720 480" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <rect width="100%" height="100%" rx="20" fill="#e8f5e9" />
+                            <g transform="translate(180,80)">
+                                <rect x="0" y="0" width="360" height="240" rx="16" fill="#fff" stroke="#cfead8" />
+                                <rect x="0" y="0" width="360" height="48" rx="12" fill="#81c784" />
+                                <text x="180" y="34" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">Laundry Booking</text>
+                                <g transform="translate(120,96)">
+                                    <circle cx="60" cy="24" r="48" fill="#f8fafc" stroke="#e6f2ea" stroke-width="6" />
+                                    <circle cx="60" cy="24" r="18" fill="#81c784" />
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+
+                    
+                    <div class="slide" data-index="2" aria-hidden="true">
+                        <svg viewBox="0 0 720 480" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <rect width="100%" height="100%" rx="20" fill="#e8f5e9" />
+                            <g transform="translate(180,80)">
+                                <rect x="0" y="0" width="360" height="240" rx="16" fill="#fff" stroke="#cfead8" />
+                                <rect x="0" y="0" width="360" height="48" rx="12" fill="#81c784" />
+                                <text x="180" y="34" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">Complaints & Cleaning</text>
+                                <g transform="translate(64,84)">
+                                    <rect x="0" y="0" width="128" height="160" rx="8" fill="#f1f8f4" />
+                                    <rect x="168" y="24" width="128" height="96" rx="8" fill="#f1f8f4" />
+                                    <path d="M300 160 L340 220" stroke="#81c784" stroke-width="8" stroke-linecap="round" />
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-info">
+                <h1>ZenCampus</h1>
+                <p>Book laundry, cleaners & complaints — instantly.</p>
+                
+                <div class="pagination">
+                    <span class="dot active" data-index="0"></span>
+                    <span class="dot" data-index="1"></span>
+                    <span class="dot" data-index="2"></span>
+                </div>
+            </div>
+        </div>
+                
+        <div class="right-section">
+            <div class="login-card">
+                <div class="logo">
+                    <span class="logo-text">Welcome to <span class="logo-highlight">ZEN</span></span>
+                </div>
+                
+                <form class="login-form" id="loginForm">
+                    <div class="form-group">
+                        <label for="usn">USN (College ID)</label>
+                        <input type="text" id="usn" name="usn" placeholder="e.g. 1RV17CS001" pattern="[A-Za-z0-9]+" title="USN must be alphanumeric" maxlength="16" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-with-icon">
+                            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                            <button type="button" class="toggle-password" aria-label="Show password" aria-pressed="false">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5C21.27 7.61 17 4.5 12 4.5z" stroke="#4a5568" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="12" r="3" stroke="#4a5568" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="forgot-password">
+                        <a href="#" id="forgotLink">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn-signin">Sign in</button>
+                    
+                    <button type="button" class="btn-admin-login" id="adminLoginBtn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 14a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" stroke-width="2"/>
+                            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        Admin Login
+                    </button>
+
+                
+                </form>
+            </div>
+        </div>
+    </div>
+    
+        
+    <div id="forgotModal" class="modal" aria-hidden="true">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="forgotTitle">
+            <button class="modal-close" aria-label="Close">✕</button>
+            <h3 id="forgotTitle">Reset Password</h3>
+            <div class="modal-step" data-step="1">
+                <form id="forgotForm">
+                    <div class="form-group">
+                        <label for="fp-usn">USN</label>
+                        <input type="text" id="fp-usn" name="fp-usn" pattern="[A-Za-z0-9]+" maxlength="16" required>
+                        <div class="error" id="fp-usn-error"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="fp-mobile">Mobile number</label>
+                        <input type="tel" id="fp-mobile" name="fp-mobile" pattern="\d{10}" placeholder="10-digit mobile" required>
+                        <div class="error" id="fp-mobile-error"></div>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="submit" class="btn-signin">Verify</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-step hidden" data-step="2">
+                <form id="resetForm">
+                    <div class="form-group">
+                        <label for="fp-new">New password</label>
+                        <input type="password" id="fp-new" name="fp-new" minlength="6" required>
+                        <div class="error" id="fp-new-error"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="fp-confirm">Confirm password</label>
+                        <input type="password" id="fp-confirm" name="fp-confirm" minlength="6" required>
+                        <div class="error" id="fp-confirm-error"></div>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn-signin" id="fp-back">Back</button>
+                        <button type="submit" class="btn-signin">Change password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+        
+    <div id="adminModal" class="modal" aria-hidden="true">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
+            <button class="modal-close" aria-label="Close">✕</button>
+            <h3 id="adminTitle">Admin Login</h3>
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="admin-id">Admin ID</label>
+                    <input type="text" id="admin-id" name="admin-id" placeholder="Enter admin ID" required>
+                    <div class="error" id="admin-id-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="admin-password">Admin Password</label>
+                    <input type="password" id="admin-password" name="admin-password" placeholder="Enter password" required>
+                    <div class="error" id="admin-password-error"></div>
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn-signin">Access Admin Panel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>

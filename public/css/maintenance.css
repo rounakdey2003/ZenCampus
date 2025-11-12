@@ -1,0 +1,259 @@
+.maintenance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.maintenance-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 6px 20px rgba(2, 6, 23, 0.06);
+  border: 1px solid #e6eef3;
+}
+
+.maintenance-card h4 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  color: #123;
+}
+
+.maintenance-card p {
+  color: #4a5568;
+  font-size: 14px;
+}
+
+.maintenance-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.btn-report,
+.btn-assign {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-report {
+  background: #f6ad55;
+  color: white;
+}
+
+.btn-assign {
+  background: #63b3ed;
+  color: white;
+}
+
+.filter-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.status-badge.open {
+  background: #fef3c7;
+  color: #92400e;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.status-badge.in-progress {
+  background: #c6f6d5;
+  color: #065f46;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.status-badge.closed {
+  background: #e6fffa;
+  color: #0f766e;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.complaint-section {
+  margin-top: 20px;
+}
+
+.complaint-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 6px 20px rgba(2,6,23,0.04);
+  border: 1px solid #eef3f7;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.complaint-form {
+  display: block;
+}
+
+.form-group {
+  margin-bottom: 12px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #243746;
+}
+
+.form-group input[type="text"],
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #dbe7ef;
+  background: #fbfdff;
+  font-size: 14px;
+  color: #0f1724;
+}
+
+.form-group input[type="text"]:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #63b3ed;
+  box-shadow: 0 6px 20px rgba(99,179,237,0.08);
+}
+
+.btn-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: linear-gradient(90deg,#4facfe,#00f2fe);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.btn-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.btn-refresh {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #e6eef3;
+  background: #fff;
+  cursor: pointer;
+}
+
+.form-message {
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.form-message.success {
+  color: #047857;
+}
+
+.form-message.error {
+  color: #b91c1c;
+}
+
+.complaints-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 420px;
+  overflow: auto;
+}
+
+.complaint-item {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #eef3f7;
+  background: #fff;
+}
+
+.complaint-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.complaint-info h4 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.complaint-status.pending {
+  background: #fef3c7;
+  color: #92400e;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.complaint-status.completed {
+  background: #e6fffa;
+  color: #0f766e;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.complaint-description {
+  margin: 8px 0 6px 0;
+  color: #334155;
+}
+
+.complaint-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+  color: #475569;
+}
+
+.btn-complete {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: none;
+  background: #10b981;
+  color: #fff;
+  cursor: pointer;
+}
+
+.loading-text, .empty-text, .error-text {
+  color: #64748b;
+  font-weight: 600;
+}
+
+@media (min-width: 900px) {
+  .dashboard-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .dashboard-content .stats-grid {
+    grid-column: 1 / -1;
+  }
+
+  .dashboard-content .complaint-section {
+    grid-column: 1 / -1;
+  }
+}
