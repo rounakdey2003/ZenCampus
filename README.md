@@ -46,7 +46,7 @@ flowchart TD
   A[User (Browser)] -->|requests pages/API| B[Express Server]
   B -->|serve static| C[public/*.html, css, js]
   B -->|REST API| D[API Handlers]
-  D -->|read/write| E[MongoDB via mongoose]
+  D -->|read/write| E[(MongoDB via mongoose)]
   D -->|save files| F[public/uploads (multer)]
   E -->|data| B
 ```
