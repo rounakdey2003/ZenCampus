@@ -47,7 +47,7 @@ flowchart TD
   B -->|serve static| C[public/*.html, css, js]
   B -->|REST API| D[API Handlers]
   D -->|read/write| E[(MongoDB via mongoose)]
-  D -->|save files| F[public/uploads (multer)]
+  D -->|save files| F[public/uploads via multer]
   E -->|data| B
 ```
 
