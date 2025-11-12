@@ -43,7 +43,7 @@ Flowchart (High-level user action → server → DB)
 
 ```mermaid
 flowchart TD
-  A[User-(Browser)] -->|requests pages/API| B[Express Server]
+  A[(Browser)] -->|requests pages/API| B[Express Server]
   B -->|serve static| C[public/*.html, css, js]
   B -->|REST API| D[API Handlers]
   D -->|read/write| E[(MongoDB via mongoose)]
