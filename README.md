@@ -3,7 +3,7 @@
 Overview
 --------
 
-ZenCampus is a lightweight campus management web app for handling student registration, washing/dryer machine bookings, and maintenance complaints. This README documents the tech stack, project structure, modules used, diagrams (flowchart, tech and logic diagrams), and instructions to run locally.
+ZenCampus is a lightweight campus management web app for handling student registration, washing/dryer machine bookings, and maintenance complaints.
 
 **Tech Stack**
 - **Backend:** `Node.js`, `Express`
