@@ -585,6 +585,71 @@ app.post('/api/washing-machines/book', async (req, res) => {
     }
 });
 
+app.post('/api/dryer-machines/book', async (req, res) => {
+    try {
+        const { machineNumber, dryType, startTime, endTime, userUSN, userName } = req.body;
+
+        if (!machineNumber || !dryType || !startTime || !endTime || !userUSN || !userName) {
+            return res.status(400).json({
+                success: false,
+                message: 'All fields are required'
+            });
+        }
+
+        const machine = await DryerMachine.findOne({ machineNumber: parseInt(machineNumber) });
+
+        if (!machine) {
+            return res.status(404).json({
+                success: false,
+                message: 'Machine not found'
+            });
+        }
+
+        if (machine.status === 'faulty') {
+            return res.status(400).json({
+                success: false,
+                message: 'Machine is under maintenance'
+            });
+        }
+
+        const requestedStart = new Date(startTime);
+        const requestedEnd = new Date(endTime);
+
+        if (machine.status === 'in-use' && machine.endTime) {
+            const machineEnd = new Date(machine.endTime);
+
+            if (requestedStart < machineEnd) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Time slot is not available'
+                });
+            }
+        }
+
+        machine.status = 'in-use';
+        machine.userUSN = userUSN;
+        machine.userName = userName;
+        machine.startTime = requestedStart;
+        machine.endTime = requestedEnd;
+        machine.lastUpdated = new Date();
+
+        await machine.save();
+
+        res.json({
+            success: true,
+            message: 'Machine booked successfully',
+            machine
+        });
+
+    } catch (error) {
+        console.error('Error booking dryer machine:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error booking machine'
+        });
+    }
+});
+
 app.get('/api/dryer-machines', async (req, res) => {
     try {
         const machines = await DryerMachine.find().sort({ machineNumber: 1 });
