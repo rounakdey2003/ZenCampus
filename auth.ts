@@ -71,13 +71,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           console.log("✅ Password valid, returning user object");
 
           // Return user object
-          return {
+          const safeUser = {
             id: String(user._id),
             usn: user.usn,
             name: user.name,
-            mobile: user.mobile,
+            mobile: user.mobile || "",
             role: user.role || "student",
           };
+
+          console.log(
+            "✅ Returning safe user object:",
+            JSON.stringify(safeUser)
+          );
+          return safeUser;
         } catch (error) {
           console.error("💥 Auth error:", error);
           return null;

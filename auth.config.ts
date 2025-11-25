@@ -4,13 +4,20 @@ export const authConfig = {
   providers: [],
   callbacks: {
     async jwt({ token, user }) {
-      if (user) {
-        token.usn = user.usn as string;
-        token.mobile = user.mobile as string;
-        token.name = user.name;
-        token.role = (user.role as string) || "student";
+      try {
+        console.log("📋 JWT Callback started");
+        if (user) {
+          console.log("👤 User present in JWT callback:", user.usn);
+          token.usn = user.usn as string;
+          token.mobile = user.mobile as string;
+          token.name = user.name;
+          token.role = (user.role as string) || "student";
+        }
+        return token;
+      } catch (error) {
+        console.error("💥 Error in JWT callback:", error);
+        return token;
       }
-      return token;
     },
     async session({ session, token }) {
       console.log("📋 Session callback - token:", {
