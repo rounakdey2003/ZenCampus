@@ -13,12 +13,20 @@ export const authConfig = {
       return token;
     },
     async session({ session, token }) {
+      console.log("📋 Session callback - token:", {
+        usn: token.usn,
+        role: token.role,
+      });
       if (token && session.user) {
         session.user.usn = token.usn as string;
         session.user.mobile = token.mobile as string;
         session.user.name = token.name as string;
         session.user.role = (token.role as string) || "student";
       }
+      console.log("📋 Session created:", {
+        usn: session.user?.usn,
+        role: session.user?.role,
+      });
       return session;
     },
   },
