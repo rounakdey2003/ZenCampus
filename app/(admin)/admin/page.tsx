@@ -166,7 +166,7 @@ export default function AdminDashboard() {
   // Calculate insights
   const studentsData = students || [];
   const complaintsData = complaints || [];
-  const maintenanceData = (maintenance || []).filter(m => m.type !== "General" && m.type !== "warden" && m.type !== "room");
+  const maintenanceData = (maintenance || []).filter(m => m.type !== "General");
   const laundryData = laundry || [];
   const washingMachines = machines?.washing || [];
   const dryerMachines = machines?.dryer || [];
