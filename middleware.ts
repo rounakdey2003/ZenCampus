@@ -1,16 +1,16 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { getToken } from "next-auth/jwt";
+import { withAuth } from "next-auth/middleware";
 
-export async function middleware(request: NextRequest) {
+function middleware(request: NextRequest) {
   // Get the pathname of the request
   const path = request.nextUrl.pathname;
 
   // Define public paths that don't require authentication
   const isPublicPath = path === "/" || path === "/login" || path === "/api/auth/signin" || path === "/api/auth/callback/credentials" || path.startsWith("/api/auth") || path.startsWith("/api/users/");
 
-  // Determine if there is a valid NextAuth session token
-  const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
+  // Access the token that `withAuth` attaches to the request
+  const token = request.nextauth?.token as Record<string, unknown> | undefined;
   const session = token
     ? {
         user: {
@@ -43,6 +43,16 @@ export async function middleware(request: NextRequest) {
 
   return NextResponse.next();
 }
+
+export default withAuth(middleware, {
+  callbacks: {
+    authorized: () => true,
+  },
+  pages: {
+    signIn: "/login",
+  },
+  secret: process.env.NEXTAUTH_SECRET,
+});
 
 // Configure which routes to run middleware on
 export const config = {
