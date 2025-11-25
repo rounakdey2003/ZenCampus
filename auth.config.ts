@@ -47,4 +47,21 @@ export const authConfig = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   basePath: "/api/auth",
+  cookies: {
+    sessionToken: {
+      name: `next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: false, // Debugging: Force non-secure to test if cookie gets set
+      },
+    },
+  },
+  debug: true, // Enable NextAuth debug mode
 } satisfies NextAuthConfig;
+
+console.log(
+  "🔒 Auth Config loaded. Secret present:",
+  !!process.env.NEXTAUTH_SECRET
+);
