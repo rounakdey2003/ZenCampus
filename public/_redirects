@@ -1,0 +1,8 @@
+# Netlify Redirects for Next.js SPA
+# This prevents 404 errors on client-side routes
+
+# API routes - proxy to Next.js API handlers
+/api/*  /.netlify/functions/:splat  200
+
+# All other routes should serve index.html for client-side routing
+/*  /index.html  200
