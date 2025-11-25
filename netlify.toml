@@ -7,11 +7,11 @@
 
 # Environment variables required for NextAuth
 # Set these in Netlify Dashboard: Site Settings > Environment Variables
-MONGODB_URI=mongodb+srv://rounakriju2003_db_user:BdGdtqDKI3kAa1Ow@cluster0.e2kwnsa.mongodb.net/zencampus
-NEXTAUTH_SECRET=ErA6P6WS5xn0dogE657
-NEXTAUTH_URL=https://zencampus.netlify.app
-ADMIN_ID=ADMIN
-ADMIN_PASSWORD=admin123
+# - NEXTAUTH_URL (e.g., https://zencampus.netlify.app)
+# - NEXTAUTH_SECRET (generate with: openssl rand -base64 32)
+# - MONGODB_URI
+# - ADMIN_ID
+# - ADMIN_PASSWORD
 
 [[headers]]
   for = "/*"
