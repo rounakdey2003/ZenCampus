@@ -51,6 +51,22 @@ interface RoomComplaint {
   submittedAt: string;
 }
 
+const normalizeCleaningStatus = (value: string): CleaningRequest["status"] => {
+  const normalized = value.trim().toLowerCase();
+  if (normalized.includes("pending")) return "Pending";
+  if (normalized.includes("scheduled")) return "Scheduled";
+  if (normalized.includes("in progress") || normalized.includes("in-progress")) return "In Progress";
+  if (normalized.includes("completed")) return "Completed";
+  return "Pending";
+};
+
+const normalizeCleaningPriority = (value: string): CleaningRequest["priority"] => {
+  const normalized = value.trim().toLowerCase();
+  if (normalized.includes("urgent")) return "Urgent";
+  if (normalized.includes("high")) return "High";
+  return "Normal";
+};
+
 export default function CleaningManagementPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterStatus, setFilterStatus] = useState<string>("All");
@@ -83,8 +99,8 @@ export default function CleaningManagementPage() {
       studentUSN: r.studentUSN,
       roomNumber: r.roomNumber,
       description: r.description,
-      status: r.status as any,
-      priority: r.priority as any,
+      status: normalizeCleaningStatus(r.status),
+      priority: normalizeCleaningPriority(r.priority),
       submittedAt: r.submittedAt,
     })))
   ];
@@ -141,7 +157,7 @@ export default function CleaningManagementPage() {
         // Update in the appropriate API based on type
         if (selectedRequest.type === "Room") {
           await putRoom(selectedRequest._id, { 
-            status: "Scheduled" as any,
+            status: "Scheduled",
             scheduledDate: scheduleDate, 
             assignedTo: assignedStaff 
           });

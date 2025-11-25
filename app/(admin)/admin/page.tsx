@@ -1,28 +1,17 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { 
   Users, 
-  CheckCircle, 
-  Clock, 
   AlertTriangle,
   Droplet,
   Wind,
-  Package,
   Coffee,
   MessageSquare,
   ArrowRight,
   Loader2,
   Wrench,
   Bell,
-  Home,
-  Bath,
-  Flag,
-  Calendar,
-  TrendingUp,
-  DollarSign,
-  ThumbsUp,
 } from "lucide-react";
 import Link from "next/link";
 import { useApi } from "@/hooks/useApi";
@@ -112,7 +101,6 @@ interface Notice {
 }
 
 export default function AdminDashboard() {
-  const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
   const [refreshInterval, setRefreshInterval] = useState(30);
 
   // Fetch all data
@@ -146,7 +134,6 @@ export default function AdminDashboard() {
       refetchForum();
       refetchPolls();
       refetchNotices();
-      setLastUpdated(new Date());
       setRefreshInterval(30);
     }, 30000);
 
@@ -166,7 +153,7 @@ export default function AdminDashboard() {
   // Calculate insights
   const studentsData = students || [];
   const complaintsData = complaints || [];
-  const maintenanceData = (maintenance || []).filter(m => m.type !== "General" && m.type !== "warden" && m.type !== "room");
+  const maintenanceData = (maintenance || []).filter(m => m.type !== "General");
   const laundryData = laundry || [];
   const washingMachines = machines?.washing || [];
   const dryerMachines = machines?.dryer || [];

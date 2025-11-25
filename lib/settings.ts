@@ -16,6 +16,7 @@ export interface SystemSettings {
   dryers: number;
   slotDuration: number;
   maxBookingsPerStudent: number;
+  laundryNotice: string;
   canteenOpenTime: string;
   canteenCloseTime: string;
   minOrderAmount: number;
@@ -38,6 +39,7 @@ const DEFAULT_SETTINGS: SystemSettings = {
   dryers: 3,
   slotDuration: 60,
   maxBookingsPerStudent: 2,
+  laundryNotice: "",
   canteenOpenTime: "07:00",
   canteenCloseTime: "22:00",
   minOrderAmount: 20,

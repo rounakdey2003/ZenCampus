@@ -2,27 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { User, X, Calendar, Droplet, Book, MapPin, Phone } from "lucide-react";
+import { User, X } from "lucide-react";
 import QRCode from "qrcode";
 import Image from "next/image";
-
-interface UserProfile {
-  dateOfBirth?: string;
-  bloodGroup?: string;
-  course?: string;
-  address?: string;
-  emergencyContact?: {
-    name: string;
-    relation: string;
-    phone: string;
-  };
-}
 
 export function DashboardHeader({ title }: { title: string }) {
   const { data: session } = useSession();
   const [showQRModal, setShowQRModal] = useState(false);
   const [qrCodeUrl, setQrCodeUrl] = useState("");
-  const [profileData, setProfileData] = useState<UserProfile | null>(null);
 
   useEffect(() => {
     if (showQRModal && session?.user?.usn) {
@@ -36,29 +23,8 @@ export function DashboardHeader({ title }: { title: string }) {
         }
       }).then(setQrCodeUrl).catch(console.error);
 
-      // Fetch profile data
-      fetch(`/api/users/${session.user.usn}`)
-        .then(res => res.json())
-        .then(result => {
-          if (result.success) {
-            setProfileData(result.data);
-          }
-        })
-        .catch(console.error);
     }
   }, [showQRModal, session?.user?.usn]);
-
-  const calculateAge = (dob?: string) => {
-    if (!dob) return null;
-    const today = new Date();
-    const birthDate = new Date(dob);
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const monthDiff = today.getMonth() - birthDate.getMonth();
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
-    return age;
-  };
 
   return (
     <>

@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
     const search = searchParams.get("search");
     const available = searchParams.get("available");
     
-    const query: Record<string, any> = {};
+    const query: Record<string, unknown> = {};
     
     if (category && category !== "all" && category !== "All") {
       query.mealType = category.toLowerCase();

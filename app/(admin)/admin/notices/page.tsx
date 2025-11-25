@@ -22,6 +22,9 @@ interface Notice {
   views?: number;
 }
 
+type NoticeCategory = Notice["category"];
+type NoticePriority = Notice["priority"];
+
 export default function NoticesManagementPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterCategory, setFilterCategory] = useState<string>("All");
@@ -29,7 +32,13 @@ export default function NoticesManagementPage() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedNotice, setSelectedNotice] = useState<Notice | null>(null);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    title: string;
+    content: string;
+    category: NoticeCategory;
+    priority: NoticePriority;
+    expiresAt: string;
+  }>({
     title: "",
     content: "",
     category: "General",
@@ -289,7 +298,7 @@ export default function NoticesManagementPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium mb-1">Category</label>
-                  <select value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value as any})} className="w-full px-3 py-2 border rounded-lg">
+                  <select value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value as NoticeCategory})} className="w-full px-3 py-2 border rounded-lg">
                     <option value="General">General</option>
                     <option value="Academic">Academic</option>
                     <option value="Event">Event</option>
@@ -299,7 +308,7 @@ export default function NoticesManagementPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-1">Priority</label>
-                  <select value={formData.priority} onChange={(e) => setFormData({...formData, priority: e.target.value as any})} className="w-full px-3 py-2 border rounded-lg">
+                  <select value={formData.priority} onChange={(e) => setFormData({...formData, priority: e.target.value as NoticePriority})} className="w-full px-3 py-2 border rounded-lg">
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
                     <option value="High">High</option>
@@ -341,7 +350,7 @@ export default function NoticesManagementPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium mb-1">Category</label>
-                  <select value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value as any})} className="w-full px-3 py-2 border rounded-lg">
+                  <select value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value as NoticeCategory})} className="w-full px-3 py-2 border rounded-lg">
                     <option value="General">General</option>
                     <option value="Academic">Academic</option>
                     <option value="Event">Event</option>
@@ -351,7 +360,7 @@ export default function NoticesManagementPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-1">Priority</label>
-                  <select value={formData.priority} onChange={(e) => setFormData({...formData, priority: e.target.value as any})} className="w-full px-3 py-2 border rounded-lg">
+                  <select value={formData.priority} onChange={(e) => setFormData({...formData, priority: e.target.value as NoticePriority})} className="w-full px-3 py-2 border rounded-lg">
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
                     <option value="High">High</option>

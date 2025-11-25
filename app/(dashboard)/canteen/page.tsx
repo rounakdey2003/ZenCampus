@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, Suspense, ChangeEvent } from "react";
 import { useSearchParams } from "next/navigation";
 
 export const dynamic = "force-dynamic";
@@ -39,6 +39,8 @@ interface Order {
   createdAt: string;
 }
 
+type MenuSortOption = "name" | "price-low" | "price-high" | "category";
+
 
 
 function CanteenContent() {
@@ -52,7 +54,7 @@ function CanteenContent() {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [filterCategory, setFilterCategory] = useState("All");
   const [orderLoading, setOrderLoading] = useState(false);
-  const [menuSortBy, setMenuSortBy] = useState<"name" | "price-low" | "price-high" | "category">("name");
+  const [menuSortBy, setMenuSortBy] = useState<MenuSortOption>("name");
   const [sortBy, setSortBy] = useState<"date" | "status">("date");
 
   const { data: menuItems, loading, error, refetch } = useApi<MenuItem[]>("/api/canteen/menu");
@@ -207,7 +209,7 @@ function CanteenContent() {
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                 <select
                   value={menuSortBy}
-                  onChange={(e) => setMenuSortBy(e.target.value as any)}
+                  onChange={(e: ChangeEvent<HTMLSelectElement>) => setMenuSortBy(e.target.value as MenuSortOption)}
                   className="px-3 py-2 border rounded-lg text-sm"
                 >
                   <option value="name">Sort by Name</option>

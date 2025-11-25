@@ -19,6 +19,8 @@ interface MenuItem {
   description: string;
 }
 
+type MenuSortOption = "name" | "price-low" | "price-high" | "category";
+
 interface Order {
   _id: string;
   studentName: string;
@@ -35,7 +37,7 @@ export default function CanteenManagementPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterCategory, setFilterCategory] = useState<string>("All");
   const [filterStatus, setFilterStatus] = useState<string>("All");
-  const [menuSortBy, setMenuSortBy] = useState<"name" | "price-low" | "price-high" | "category">("name");
+  const [menuSortBy, setMenuSortBy] = useState<MenuSortOption>("name");
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
@@ -253,7 +255,7 @@ export default function CanteenManagementPage() {
                 </select>
                 <select
                   value={menuSortBy}
-                  onChange={(e) => setMenuSortBy(e.target.value as any)}
+                  onChange={(e) => setMenuSortBy(e.target.value as MenuSortOption)}
                   className="px-4 py-2 border rounded-lg w-full sm:w-auto"
                 >
                   <option value="name">Sort by Name</option>

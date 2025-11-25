@@ -124,7 +124,7 @@ function StudentContent() {
       await putPost(postId, { action: "like", usn: studentUSN });
       // Optimistically update UI
       await refetchPosts({});
-    } catch (err) {
+    } catch {
       toast.error("Failed to update like");
     }
   };
@@ -153,12 +153,12 @@ function StudentContent() {
       await refetchPosts({});
       
       // Update the selected post with the latest data
-      const updatedPosts = await refetchPosts({});
-      const updatedPost = (updatedPosts as any)?.find((p: ForumPost) => p._id === selectedPost._id);
+      const updatedPosts = (await refetchPosts({})) || [];
+      const updatedPost = updatedPosts.find((p: ForumPost) => p._id === selectedPost._id);
       if (updatedPost) {
         setSelectedPost(updatedPost);
       }
-    } catch (err) {
+    } catch {
       toast.error("Failed to post reply");
     }
   };
@@ -262,7 +262,7 @@ function StudentContent() {
 
   const handleVote = async (pollId: string, optionIndex: number) => {
     try {
-      const result = await putPoll(pollId, { vote: optionIndex, usn: studentUSN });
+      await putPoll(pollId, { vote: optionIndex, usn: studentUSN });
       toast.success("Vote submitted successfully!");
       refetchPolls({});
     } catch (err: unknown) {

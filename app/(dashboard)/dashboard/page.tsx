@@ -71,7 +71,6 @@ interface Notice {
 export default function DashboardPage() {
   const { user } = useUser();
   const studentUSN = user?.usn || "";
-  const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
   const [refreshInterval, setRefreshInterval] = useState(30);
   
   // ZenWash - Separate API calls for Washing and Dryer (matches washing/page.tsx logic)
@@ -185,8 +184,6 @@ export default function DashboardPage() {
       refetchPosts({});
       refetchPolls({});
       refetchNotices({ status: "Active" });
-      
-      setLastUpdated(new Date());
       setRefreshInterval(30);
     }, 30000);
 

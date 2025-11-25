@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { MenuItemModel as MenuItem } from "@/models/Canteen";
+import { MenuItem as MenuItemType, MealType } from "@/types";
 
 export async function PUT(
   request: NextRequest,
@@ -10,12 +11,15 @@ export async function PUT(
     await connectDB();
     const { id } = await params;
     
-    const body = await request.json();
-    
+    const body = (await request.json()) as Partial<MenuItemType> & { category?: string };
+
     // Transform category to mealType if category is provided
-    const updateData: any = { ...body };
+    const updateData: Partial<MenuItemType> & { category?: string; mealType?: MealType } = { ...body };
     if (body.category) {
-      updateData.mealType = body.category.toLowerCase();
+      const normalizedCategory = body.category.toLowerCase();
+      if (isMealType(normalizedCategory)) {
+        updateData.mealType = normalizedCategory;
+      }
       delete updateData.category; // Remove category field as it's not in schema
     }
     
@@ -54,6 +58,11 @@ export async function PUT(
       { status: 500 }
     );
   }
+}
+
+function isMealType(value: string): value is MealType {
+  const mealTypes: MealType[] = ["breakfast", "lunch", "snacks", "dinner"];
+  return mealTypes.includes(value as MealType);
 }
 
 export async function DELETE(

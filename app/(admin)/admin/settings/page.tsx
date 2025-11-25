@@ -13,6 +13,7 @@ import {
   Info,
   CheckCircle,
 } from "lucide-react";
+import { toast } from "sonner";
 interface SystemSettings {
   _id?: string;
   hostelName: string;

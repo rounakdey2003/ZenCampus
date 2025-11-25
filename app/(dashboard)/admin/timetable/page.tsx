@@ -46,7 +46,7 @@ export default function AdminTimetablePage() {
       setFormData({ name: "", timing: "", type: "General", day: "All Days" });
       setShowAddModal(false);
       refetch();
-    } catch (err) {
+    } catch {
       toast.error("Failed to add entry");
     }
   };
@@ -58,7 +58,7 @@ export default function AdminTimetablePage() {
       await del(id);
       toast.success("Entry deleted successfully!");
       refetch();
-    } catch (err) {
+    } catch {
       toast.error("Failed to delete entry");
     }
   };
