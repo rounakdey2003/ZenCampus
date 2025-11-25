@@ -5,14 +5,6 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# Environment variables required for NextAuth
-# Set these in Netlify Dashboard: Site Settings > Environment Variables
-# - NEXTAUTH_URL (e.g., https://zencampus.netlify.app)
-# - NEXTAUTH_SECRET (generate with: openssl rand -base64 32)
-# - MONGODB_URI
-# - ADMIN_ID
-# - ADMIN_PASSWORD
-
 [[headers]]
   for = "/*"
   [headers.values]

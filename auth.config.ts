@@ -32,5 +32,4 @@ export const authConfig = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   basePath: "/api/auth",
-  useSecureCookies: process.env.NODE_ENV === "production",
 } satisfies NextAuthConfig;

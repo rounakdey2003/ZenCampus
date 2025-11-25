@@ -25,7 +25,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const { usn, password } = validatedFields.data;
 
           // Check for admin credentials from environment
-          if (usn.toUpperCase() === process.env.ADMIN_ID && password === process.env.ADMIN_PASSWORD) {
+          if (
+            usn.toUpperCase() === process.env.ADMIN_ID &&
+            password === process.env.ADMIN_PASSWORD
+          ) {
             return {
               id: "admin",
               usn: process.env.ADMIN_ID!,
@@ -70,4 +73,3 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
 });
-

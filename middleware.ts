@@ -7,9 +7,19 @@ export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
 
   // Define public paths that don't require authentication
-  const isPublicPath = path === "/" || path === "/login" || path === "/api/auth/signin" || path === "/api/auth/callback/credentials" || path.startsWith("/api/auth") || path.startsWith("/api/users/");
+  const isPublicPath =
+    path === "/" ||
+    path === "/login" ||
+    path === "/api/auth/signin" ||
+    path === "/api/auth/callback/credentials" ||
+    path.startsWith("/api/auth") ||
+    path.startsWith("/api/users/") ||
+    path.startsWith("/api/debug-env");
 
-  const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
+  const token = await getToken({
+    req: request,
+    secret: process.env.NEXTAUTH_SECRET,
+  });
   const session = token
     ? {
         user: {
@@ -17,7 +27,7 @@ export async function middleware(request: NextRequest) {
         },
       }
     : null;
-  
+
   // Check if path is admin route
   const isAdminPath = path.startsWith("/admin");
 
