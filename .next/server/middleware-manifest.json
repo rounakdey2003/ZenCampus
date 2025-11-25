@@ -1,0 +1,32 @@
+{
+  "version": 3,
+  "middleware": {
+    "/": {
+      "files": [
+        "server/edge-runtime-webpack.js",
+        "server/middleware.js"
+      ],
+      "name": "middleware",
+      "page": "/",
+      "matchers": [
+        {
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?(?:\\/((?!_next\\/static|_next\\/image|favicon.ico|.*\\..*|api\\/health).*))(\\.json)?[\\/#\\?]?$",
+          "originalSource": "/((?!_next/static|_next/image|favicon.ico|.*\\..*|api/health).*)"
+        }
+      ],
+      "wasm": [],
+      "assets": [],
+      "env": {
+        "__NEXT_BUILD_ID": "dUrqItbtXFYdF-tJrzTFx",
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "ewjsZZj5y+p/7zCtrjSpr4ooqXeUIMi3HTsX/diwheA=",
+        "__NEXT_PREVIEW_MODE_ID": "bdd08a275587e65fd5a357492fd575e7",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "bf04b5d26888dec75a489bc77d6d4bfbe42266cf252045fa8beb3d89b192ef9f",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "21f703d34fb4e1525138f55b129e91c93326d876ce414ad64e6a2777e89517af"
+      }
+    }
+  },
+  "functions": {},
+  "sortedMiddleware": [
+    "/"
+  ]
+}

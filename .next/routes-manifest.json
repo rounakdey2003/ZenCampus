@@ -1,0 +1,308 @@
+{
+  "version": 3,
+  "pages404": true,
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    },
+    {
+      "source": "/carpentry",
+      "destination": "/maintenance?tab=carpentry",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/carpentry(?:/)?$"
+    },
+    {
+      "source": "/plumbing",
+      "destination": "/maintenance?tab=plumbing",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/plumbing(?:/)?$"
+    },
+    {
+      "source": "/dryer",
+      "destination": "/washing?tab=dryer",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/dryer(?:/)?$"
+    },
+    {
+      "source": "/bathroom",
+      "destination": "/room?tab=bathroom",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/bathroom(?:/)?$"
+    }
+  ],
+  "headers": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/api/auth/[...nextauth]",
+      "regex": "^/api/auth/(.+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPnextauth": "nxtPnextauth"
+      },
+      "namedRegex": "^/api/auth/(?<nxtPnextauth>.+?)(?:/)?$"
+    },
+    {
+      "page": "/api/canteen/menu/[id]",
+      "regex": "^/api/canteen/menu/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/canteen/menu/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/canteen/orders/[id]",
+      "regex": "^/api/canteen/orders/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/canteen/orders/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/cleaning/[id]",
+      "regex": "^/api/cleaning/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/cleaning/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/forum/polls/[id]",
+      "regex": "^/api/forum/polls/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/forum/polls/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/forum/posts/[id]",
+      "regex": "^/api/forum/posts/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/forum/posts/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/laundry/[id]",
+      "regex": "^/api/laundry/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/laundry/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/machines/[id]",
+      "regex": "^/api/machines/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/machines/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/maintenance/[id]",
+      "regex": "^/api/maintenance/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/maintenance/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/notices/[id]",
+      "regex": "^/api/notices/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/notices/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/students/[id]",
+      "regex": "^/api/students/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/students/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/timetable/[id]",
+      "regex": "^/api/timetable/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/timetable/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/users/[usn]",
+      "regex": "^/api/users/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPusn": "nxtPusn"
+      },
+      "namedRegex": "^/api/users/(?<nxtPusn>[^/]+?)(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/admin",
+      "regex": "^/admin(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin(?:/)?$"
+    },
+    {
+      "page": "/admin/canteen",
+      "regex": "^/admin/canteen(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/canteen(?:/)?$"
+    },
+    {
+      "page": "/admin/cleaning",
+      "regex": "^/admin/cleaning(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/cleaning(?:/)?$"
+    },
+    {
+      "page": "/admin/complaints",
+      "regex": "^/admin/complaints(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/complaints(?:/)?$"
+    },
+    {
+      "page": "/admin/forum",
+      "regex": "^/admin/forum(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/forum(?:/)?$"
+    },
+    {
+      "page": "/admin/laundry",
+      "regex": "^/admin/laundry(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/laundry(?:/)?$"
+    },
+    {
+      "page": "/admin/maintenance",
+      "regex": "^/admin/maintenance(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/maintenance(?:/)?$"
+    },
+    {
+      "page": "/admin/notices",
+      "regex": "^/admin/notices(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/notices(?:/)?$"
+    },
+    {
+      "page": "/admin/polls",
+      "regex": "^/admin/polls(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/polls(?:/)?$"
+    },
+    {
+      "page": "/admin/settings",
+      "regex": "^/admin/settings(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/settings(?:/)?$"
+    },
+    {
+      "page": "/admin/students",
+      "regex": "^/admin/students(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/students(?:/)?$"
+    },
+    {
+      "page": "/admin/timetable",
+      "regex": "^/admin/timetable(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/timetable(?:/)?$"
+    },
+    {
+      "page": "/canteen",
+      "regex": "^/canteen(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/canteen(?:/)?$"
+    },
+    {
+      "page": "/dashboard",
+      "regex": "^/dashboard(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/dashboard(?:/)?$"
+    },
+    {
+      "page": "/login",
+      "regex": "^/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/login(?:/)?$"
+    },
+    {
+      "page": "/maintenance",
+      "regex": "^/maintenance(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/maintenance(?:/)?$"
+    },
+    {
+      "page": "/notice",
+      "regex": "^/notice(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/notice(?:/)?$"
+    },
+    {
+      "page": "/profile",
+      "regex": "^/profile(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/profile(?:/)?$"
+    },
+    {
+      "page": "/room",
+      "regex": "^/room(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/room(?:/)?$"
+    },
+    {
+      "page": "/student",
+      "regex": "^/student(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/student(?:/)?$"
+    },
+    {
+      "page": "/washing",
+      "regex": "^/washing(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/washing(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSuffix": ".prefetch.rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments"
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}

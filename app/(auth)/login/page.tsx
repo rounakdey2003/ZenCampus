@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -70,7 +69,6 @@ const slides = [
 ];
 
 export default function LoginPage() {
-  const router = useRouter();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -113,15 +111,20 @@ export default function LoginPage() {
         usn,
         password,
         redirect: false,
+        callbackUrl: "/dashboard",
       });
 
       if (result?.error) {
+        setError("Invalid credentials. Please try again.");
         toast.error("Invalid credentials. Please try again.");
-      } else {
-        router.push("/dashboard");
+      } else if (result?.ok) {
+        // Force a hard navigation to ensure session is loaded
+        window.location.href = "/dashboard";
       }
-    } catch {
+    } catch (err) {
+      setError("An error occurred. Please try again.");
       toast.error("An error occurred. Please try again.");
+      console.error("Login error:", err);
     } finally {
       setLoading(false);
     }
@@ -137,18 +140,22 @@ export default function LoginPage() {
         usn: adminId,
         password: adminPassword,
         redirect: false,
+        callbackUrl: "/admin",
       });
 
       if (result?.error) {
+        setAdminError("Invalid admin credentials. Please try again.");
         toast.error("Invalid admin credentials. Please try again.");
-      } else {
+      } else if (result?.ok) {
         // Successful login - redirect to admin panel
         setShowAdminModal(false);
-        router.push("/admin");
-        router.refresh();
+        // Force a hard navigation to ensure session is loaded
+        window.location.href = "/admin";
       }
-    } catch {
+    } catch (err) {
+      setAdminError("An error occurred. Please try again.");
       toast.error("An error occurred. Please try again.");
+      console.error("Admin login error:", err);
     } finally {
       setAdminLoading(false);
     }
