@@ -6,6 +6,12 @@ export async function middleware(request: NextRequest) {
   // Get the pathname of the request
   const path = request.nextUrl.pathname;
 
+  // Debug: Log cookies to see if session token is present
+  const cookieNames = request.cookies.getAll().map((c) => c.name);
+  if (path === "/" || path === "/login" || path === "/dashboard") {
+    console.log(`🍪 Middleware [${path}] Cookies:`, cookieNames);
+  }
+
   // Define public paths that don't require authentication
   const isPublicPath =
     path === "/" ||

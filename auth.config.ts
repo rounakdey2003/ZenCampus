@@ -49,12 +49,12 @@ export const authConfig = {
   basePath: "/api/auth",
   cookies: {
     sessionToken: {
-      name: `next-auth.session-token`,
+      name: `__Secure-next-auth.session-token`,
       options: {
         httpOnly: true,
         sameSite: "lax",
         path: "/",
-        secure: false, // Debugging: Force non-secure to test if cookie gets set
+        secure: true,
       },
     },
   },
