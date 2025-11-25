@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import NextAuth from "next-auth";
-import { authConfig } from "@/auth.config";
-
-const { auth } = NextAuth(authConfig);
+import { getToken } from "next-auth/jwt";
 
 export async function middleware(request: NextRequest) {
   // Get the pathname of the request
@@ -12,8 +9,14 @@ export async function middleware(request: NextRequest) {
   // Define public paths that don't require authentication
   const isPublicPath = path === "/" || path === "/login" || path === "/api/auth/signin" || path === "/api/auth/callback/credentials" || path.startsWith("/api/auth") || path.startsWith("/api/users/");
 
-  // Get the session
-  const session = await auth();
+  const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
+  const session = token
+    ? {
+        user: {
+          role: (token.role as string) || "student",
+        },
+      }
+    : null;
   
   // Check if path is admin route
   const isAdminPath = path.startsWith("/admin");
