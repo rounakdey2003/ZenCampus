@@ -13,7 +13,7 @@ export async function middleware(request: NextRequest) {
   const isPublicPath = path === "/" || path === "/login" || path === "/api/auth/signin" || path === "/api/auth/callback/credentials" || path.startsWith("/api/auth") || path.startsWith("/api/users/");
 
   // Get the session
-  const session = await auth();
+  const session = await auth(request);
   
   // Check if path is admin route
   const isAdminPath = path.startsWith("/admin");
