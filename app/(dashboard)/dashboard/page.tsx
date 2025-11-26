@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { DashboardHeader } from "@/components/layout/dashboard-header";
-import { Card, CardContent } from "@/components/ui/Card";
+import { Card, CardContent } from "@/components/ui";
 import { Users, Loader2, Droplet, Home, Coffee, MessageSquare, Bell } from "lucide-react";
 import { useApi } from "@/hooks/useApi";
 import { useUser } from "@/hooks/useUser";

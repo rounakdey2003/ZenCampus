@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { DashboardHeader } from "@/components/layout/dashboard-header";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
+import { Card, CardContent, CardHeader, CardTitle, Badge } from "@/components/ui";
 import { Bell, Loader2 } from "lucide-react";
 import { useApi } from "@/hooks/useApi";
 

@@ -7,12 +7,7 @@ export const dynamic = "force-dynamic";
 
 import Link from "next/link";
 import { DashboardHeader } from "@/components/layout/dashboard-header";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
-import { Label } from "@/components/ui/Label";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "@/components/ui/Modal";
-import { Badge } from "@/components/ui/Badge";
+import { Card, CardContent, CardHeader, CardTitle, Button, Input, Label, Modal, ModalHeader, ModalBody, ModalFooter, Badge } from "@/components/ui";
 import { 
   MessageSquare, 
   AlertTriangle, 

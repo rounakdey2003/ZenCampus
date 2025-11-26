@@ -3,10 +3,7 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
-import { Label } from "@/components/ui/Label";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "@/components/ui/Modal";
+import { Button, Input, Label, Modal, ModalHeader, ModalBody, ModalFooter } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 

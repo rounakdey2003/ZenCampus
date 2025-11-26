@@ -2,10 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
+import { Card, CardContent, CardHeader, CardTitle, Badge, Button, Input } from "@/components/ui";
 import { 
   Search, 
   Droplet,

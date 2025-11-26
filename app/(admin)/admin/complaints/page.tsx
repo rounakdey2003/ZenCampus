@@ -2,10 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
-import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
-import { Input } from "@/components/ui/Input";
+import { Card, CardContent, CardHeader, CardTitle, Button, Badge, Input } from "@/components/ui";
 import { Eye, Search, Loader2 } from "lucide-react";
 import { useApi } from "@/hooks/useApi";
 

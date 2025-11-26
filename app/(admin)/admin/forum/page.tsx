@@ -1,10 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
+import { Card, CardContent, CardHeader, CardTitle, Badge, Button, Input } from "@/components/ui";
 import { Search, ThumbsUp, MessageCircle, Trash2, Flag, Loader2 } from "lucide-react";
 import { useApi } from "@/hooks/useApi";
 import { toast } from "sonner";
