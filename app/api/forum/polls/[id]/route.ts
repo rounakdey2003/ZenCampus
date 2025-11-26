@@ -1,13 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
+import { auth } from "@/auth";
 import Poll from "@/models/Poll";
 
-// GET - Get single poll
-export async function GET(
+export const GET = async (
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
-) {
+) => {
   try {
+    const session = await auth();
+    if (!session?.user) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized - Authentication required" },
+        { status: 401 }
+      );
+    }
+
     await connectDB();
     const { id } = await params;
 
@@ -27,14 +35,21 @@ export async function GET(
       { status: 500 }
     );
   }
-}
+};
 
-// PUT - Update poll (for voting or status change)
-export async function PUT(
+export const PUT = async (
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
-) {
+) => {
   try {
+    const session = await auth();
+    if (!session?.user) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized - Authentication required" },
+        { status: 401 }
+      );
+    }
+
     await connectDB();
     const { id } = await params;
     const body = await request.json();
@@ -48,11 +63,9 @@ export async function PUT(
       );
     }
 
-    // Handle voting
     if (body.vote !== undefined && body.usn) {
       const { vote: optionIndex, usn } = body;
       
-      // Check if user already voted
       const hasVoted = poll.votedBy.find((v: { usn: string }) => v.usn === usn);
       
       if (hasVoted) {
@@ -62,7 +75,6 @@ export async function PUT(
         );
       }
 
-      // Check if poll is still active
       if (poll.status !== "Active" || new Date() > new Date(poll.expiresAt)) {
         return NextResponse.json(
           { success: false, error: "This poll is no longer active" },
@@ -70,7 +82,6 @@ export async function PUT(
         );
       }
 
-      // Check if option index is valid
       if (optionIndex < 0 || optionIndex >= poll.options.length) {
         return NextResponse.json(
           { success: false, error: "Invalid option selected" },
@@ -78,17 +89,13 @@ export async function PUT(
         );
       }
 
-      // Add vote
       poll.options[optionIndex].votes += 1;
       poll.totalVotes += 1;
       poll.votedBy.push({ usn, optionIndex, votedAt: new Date() });
       
       await poll.save({ validateModifiedOnly: true });
       return NextResponse.json({ success: true, data: poll });
-    }
-
-    // Handle status update (admin only)
-    if (body.status) {
+    } else if (body.status) {
       poll.status = body.status;
       await poll.save({ validateModifiedOnly: true });
       return NextResponse.json({ success: true, data: poll });
@@ -104,14 +111,21 @@ export async function PUT(
       { status: 500 }
     );
   }
-}
+};
 
-// DELETE - Delete poll (admin only)
-export async function DELETE(
+export const DELETE = async (
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
-) {
+) => {
   try {
+    const session = await auth();
+    if (!session?.user) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized - Authentication required" },
+        { status: 401 }
+      );
+    }
+
     await connectDB();
     const { id } = await params;
 
@@ -131,4 +145,4 @@ export async function DELETE(
       { status: 500 }
     );
   }
-}
+};

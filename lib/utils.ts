@@ -1,17 +1,10 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-/**
- * Utility function to merge Tailwind CSS classes with conditional logic
- * Uses clsx for conditional classes and tailwind-merge to resolve conflicts
- */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-/**
- * Format date to readable string
- */
 export function formatDate(date: Date | string): string {
   const d = typeof date === "string" ? new Date(date) : date;
   return d.toLocaleDateString("en-IN", {
@@ -21,9 +14,6 @@ export function formatDate(date: Date | string): string {
   });
 }
 
-/**
- * Format date and time to readable string
- */
 export function formatDateTime(date: Date | string): string {
   const d = typeof date === "string" ? new Date(date) : date;
   return d.toLocaleString("en-IN", {
@@ -35,9 +25,6 @@ export function formatDateTime(date: Date | string): string {
   });
 }
 
-/**
- * Calculate time remaining until a future date
- */
 export function getTimeRemaining(endTime: Date | string): {
   total: number;
   hours: number;
@@ -58,40 +45,25 @@ export function getTimeRemaining(endTime: Date | string): {
   };
 }
 
-/**
- * Format USN to uppercase
- */
 export function formatUSN(usn: string): string {
   return usn.toUpperCase().trim();
 }
 
-/**
- * Validate mobile number (10 digits)
- */
 export const MOBILE_REGEX = /^\d{10}$/;
 export function isValidMobile(mobile: string): boolean {
   return MOBILE_REGEX.test(mobile);
 }
 
-/**
- * Validate USN format (alphanumeric)
- */
 export const USN_REGEX = /^[A-Za-z0-9]+$/;
 export function isValidUSN(usn: string): boolean {
   return USN_REGEX.test(usn) && usn.length <= 16;
 }
 
-/**
- * Truncate text with ellipsis
- */
 export function truncate(text: string, maxLength: number): string {
   if (text.length <= maxLength) return text;
   return text.substring(0, maxLength) + "...";
 }
 
-/**
- * Get priority badge color
- */
 export function getPriorityColor(priority: string): string {
   switch (priority) {
     case "urgent":
@@ -104,9 +76,6 @@ export function getPriorityColor(priority: string): string {
   }
 }
 
-/**
- * Get status badge color
- */
 export function getStatusColor(status: string): string {
   switch (status) {
     case "completed":
@@ -129,9 +98,6 @@ export function getStatusColor(status: string): string {
   }
 }
 
-/**
- * Get category icon class
- */
 export function getCategoryIcon(category: string): string {
   switch (category) {
     case "electrical":

@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
+import { requireAuth } from "@/lib/auth-middleware";
 import CleaningRequest from "@/models/CleaningRequest";
 
-export async function GET(request: NextRequest) {
+export const GET = requireAuth(async (request: NextRequest, session: unknown) => {
   try {
     await connectDB();
     
@@ -10,7 +11,7 @@ export async function GET(request: NextRequest) {
     const search = searchParams.get("search");
     const status = searchParams.get("status");
     const type = searchParams.get("type");
-    const usn = searchParams.get("usn"); // Filter by student USN
+    const usn = searchParams.get("usn");
     
     const query: Record<string, unknown> = {};
     
@@ -30,7 +31,6 @@ export async function GET(request: NextRequest) {
       query.type = type;
     }
     
-    // Filter by student USN if provided (for student views)
     if (usn) {
       query.studentUSN = usn;
     }
@@ -45,9 +45,9 @@ export async function GET(request: NextRequest) {
       { status: 500 }
     );
   }
-}
+});
 
-export async function POST(request: NextRequest) {
+export const POST = requireAuth(async (request: NextRequest, session: unknown) => {
   try {
     await connectDB();
     
@@ -63,4 +63,4 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
-}
+});

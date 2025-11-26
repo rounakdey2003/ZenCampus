@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { 
   Users, 
   AlertTriangle,
@@ -103,7 +103,6 @@ interface Notice {
 export default function AdminDashboard() {
   const [refreshInterval, setRefreshInterval] = useState(30);
 
-  // Fetch all data
   const { data: students, loading: studentsLoading, refetch: refetchStudents } = useApi<Student[]>("/api/students");
   const { data: complaints, loading: complaintsLoading, refetch: refetchComplaints } = useApi<Complaint[]>("/api/maintenance", { params: { type: "warden" } });
   const { data: maintenance, loading: maintenanceLoading, refetch: refetchMaintenance } = useApi<MaintenanceRequest[]>("/api/maintenance");
@@ -120,7 +119,6 @@ export default function AdminDashboard() {
                    machinesLoading || cleaningLoading || menuLoading || ordersLoading || 
                    forumLoading || pollsLoading || noticesLoading;
 
-  // Auto-refresh every 30 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       refetchStudents();
@@ -141,7 +139,6 @@ export default function AdminDashboard() {
   }, [refetchStudents, refetchComplaints, refetchMaintenance, refetchLaundry, refetchMachines, 
       refetchCleaning, refetchMenu, refetchOrders, refetchForum, refetchPolls, refetchNotices]);
 
-  // Countdown timer
   useEffect(() => {
     const countdown = setInterval(() => {
       setRefreshInterval(prev => prev > 0 ? prev - 1 : 30);
@@ -150,7 +147,6 @@ export default function AdminDashboard() {
     return () => clearInterval(countdown);
   }, []);
 
-  // Calculate insights
   const studentsData = students || [];
   const complaintsData = complaints || [];
   const maintenanceData = (maintenance || []).filter(m => m.type !== "General");
@@ -164,42 +160,35 @@ export default function AdminDashboard() {
   const pollsData = polls || [];
   const noticesData = notices || [];
 
-  // Students insights
   const totalStudents = studentsData.length;
   const studentsWithRooms = studentsData.filter(s => s.room).length;
   const studentsWithoutRooms = totalStudents - studentsWithRooms;
 
-  // Complaints insights
   const totalComplaints = complaintsData.length;
   const pendingComplaints = complaintsData.filter(c => c.status === "Pending").length;
   const completedComplaints = complaintsData.filter(c => c.status === "Completed").length;
 
-  // Maintenance insights
   const totalMaintenance = maintenanceData.length;
   const pendingMaintenance = maintenanceData.filter(m => m.status === "Pending").length;
   const inProgressMaintenance = maintenanceData.filter(m => m.status === "In Progress").length;
   const urgentMaintenance = maintenanceData.filter(m => m.priority === "High" || m.priority === "Urgent").length;
 
-  // Laundry insights
   const totalBookings = laundryData.length;
   const activeBookings = laundryData.filter(l => l.status === "Scheduled" || l.status === "In Progress").length;
   const washingAvailable = washingMachines.filter(m => m.status === "Available").length;
   const dryerAvailable = dryerMachines.filter(m => m.status === "Available").length;
   const faultyMachines = [...washingMachines, ...dryerMachines].filter(m => m.status === "Faulty" || m.status === "Repairing").length;
 
-  // Cleaning insights
   const totalCleaning = cleaningData.length;
   const pendingCleaning = cleaningData.filter(c => c.status === "Pending").length;
   const urgentCleaning = cleaningData.filter(c => c.priority === "High" || c.priority === "Urgent").length;
 
-  // Canteen insights
   const totalMenu = menuData.length;
   const availableItems = menuData.filter(m => m.available).length;
   const totalOrders = ordersData.length;
   const todayRevenue = ordersData.reduce((sum, o) => sum + o.total, 0);
   const pendingOrders = ordersData.filter(o => o.status === "Pending" || o.status === "Preparing").length;
 
-  // Forum insights
   const totalPosts = forumData.length;
   const activePosts = forumData.filter(f => f.status === "Active").length;
   const flaggedPosts = forumData.filter(f => f.status === "Flagged").length;
@@ -207,7 +196,6 @@ export default function AdminDashboard() {
   const activePolls = pollsData.filter(p => p.status === "Active").length;
   const totalVotes = pollsData.reduce((sum, p) => sum + p.totalVotes, 0);
 
-  // Notices insights
   const totalNotices = noticesData.length;
   const activeNotices = noticesData.filter(n => n.status === "Active" && new Date(n.expiresAt) > new Date()).length;
   const urgentNotices = noticesData.filter(n => n.priority === "High" && n.status === "Active").length;

@@ -7,12 +7,12 @@ export const dynamic = "force-dynamic";
 
 import Link from "next/link";
 import { DashboardHeader } from "@/components/layout/dashboard-header";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "@/components/ui/modal";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { Label } from "@/components/ui/Label";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "@/components/ui/Modal";
+import { Badge } from "@/components/ui/Badge";
 import { 
   MessageSquare, 
   AlertTriangle, 
@@ -87,9 +87,9 @@ function StudentContent() {
   const [showComplaintModal, setShowComplaintModal] = useState(false);
   const [showPollModal, setShowPollModal] = useState(false);
   const [showReplyModal, setShowReplyModal] = useState(false);
-  const [viewMode, setViewMode] = useState<"view" | "reply">("view"); // Track if user can reply or just view
-  const [selectedPost, setSelectedPost] = useState<ForumPost | null>(null);
   const [replyContent, setReplyContent] = useState("");
+  const [selectedPost, setSelectedPost] = useState<ForumPost | null>(null);
+  const [viewMode, setViewMode] = useState<"view" | "reply">("view");
   const [discussionForm, setDiscussionForm] = useState({ title: "", content: "", category: "General" });
   const [complaintForm, setComplaintForm] = useState({ description: "" });
   const [pollForm, setPollForm] = useState({ question: "", options: ["", ""], expiresAt: "" });
@@ -98,22 +98,19 @@ function StudentContent() {
   const { data: allComplaints, loading: complaintsLoading, refetch: refetchComplaints, post: postComplaint } = useApi<Maintenance[]>("/api/maintenance", { autoFetch: false });
   const { data: polls, loading: pollsLoading, refetch: refetchPolls, post: postPoll, put: putPoll } = useApi<Poll[]>("/api/forum/polls");
   
-  // API now returns user-specific data, only filter by type for safety
   const wardenComplaints = (allComplaints || []).filter(c => c.type === "warden");
 
-  // Fetch complaints when studentUSN is available
   useEffect(() => {
     if (studentUSN) {
       refetchComplaints({ type: "warden", usn: studentUSN });
     }
   }, [studentUSN, refetchComplaints]);
 
-  // Auto-refresh posts every 10 seconds for real-time updates
   useEffect(() => {
     if (activeTab === "discussions") {
       const interval = setInterval(() => {
         refetchPosts({});
-      }, 10000); // Refresh every 10 seconds
+      }, 10000);
 
       return () => clearInterval(interval);
     }
@@ -122,7 +119,6 @@ function StudentContent() {
   const handleLikePost = async (postId: string) => {
     try {
       await putPost(postId, { action: "like", usn: studentUSN });
-      // Optimistically update UI
       await refetchPosts({});
     } catch {
       toast.error("Failed to update like");
@@ -149,10 +145,8 @@ function StudentContent() {
       toast.success("Reply posted successfully!");
       setReplyContent("");
       
-      // Immediately refresh to show the new reply
       await refetchPosts({});
       
-      // Update the selected post with the latest data
       const updatedPosts = (await refetchPosts({})) || [];
       const updatedPost = updatedPosts.find((p: ForumPost) => p._id === selectedPost._id);
       if (updatedPost) {
@@ -163,14 +157,12 @@ function StudentContent() {
     }
   };
 
-  // Open modal in VIEW mode (clicking card - read-only)
   const openViewModal = (post: ForumPost) => {
     setSelectedPost(post);
     setViewMode("view");
     setShowReplyModal(true);
   };
 
-  // Open modal in REPLY mode (clicking comment button - can post replies)
   const openReplyModal = (post: ForumPost) => {
     setSelectedPost(post);
     setViewMode("reply");
@@ -556,7 +548,6 @@ function StudentContent() {
             ) : (
               <div className="space-y-4">
                 {polls.filter(poll => {
-                  // Auto-hide expired polls
                   const isExpired = new Date(poll.expiresAt) < new Date();
                   const isClosed = poll.status === "Closed";
                   return !isExpired && !isClosed;

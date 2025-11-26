@@ -1,14 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
-import dbConnect from "@/lib/db";
+import connectDB from "@/lib/db";
+import { auth } from "@/auth";
 import User from "@/models/User";
 
-// GET - Fetch user profile by USN
-export async function GET(
+export const GET = async (
   request: NextRequest,
   { params }: { params: Promise<{ usn: string }> }
-) {
+) => {
   try {
-    await dbConnect();
+    const session = await auth();
+    if (!session?.user) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized - Authentication required" },
+        { status: 401 }
+      );
+    }
+
+    await connectDB();
     const { usn } = await params;
 
     const user = await User.findOne({ usn }).select("-password");
@@ -21,30 +29,33 @@ export async function GET(
     }
 
     return NextResponse.json({ success: true, data: user }, { status: 200 });
-  } catch (error) {
-    console.error("Error fetching user:", error);
+  } catch {
     return NextResponse.json(
       { success: false, error: "Failed to fetch user profile" },
       { status: 500 }
     );
   }
-}
+};
 
-// PUT - Update user profile
-export async function PUT(
+export const PUT = async (
   request: NextRequest,
   { params }: { params: Promise<{ usn: string }> }
-) {
+) => {
   try {
-    await dbConnect();
+    const session = await auth();
+    if (!session?.user) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized - Authentication required" },
+        { status: 401 }
+      );
+    }
+
+    await connectDB();
     const { usn } = await params;
     const body = await request.json();
 
-    // Remove fields that shouldn't be updated via this endpoint
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, role, _id, ...updateData } = body;
 
-    // Validate blood group if provided
     if (updateData.bloodGroup) {
       const validBloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
       if (!validBloodGroups.includes(updateData.bloodGroup)) {
@@ -55,7 +66,6 @@ export async function PUT(
       }
     }
 
-    // Validate emergency contact phone if provided
     if (updateData.emergencyContact?.phone) {
       const phoneRegex = /^\d{10}$/;
       if (!phoneRegex.test(updateData.emergencyContact.phone)) {
@@ -66,7 +76,6 @@ export async function PUT(
       }
     }
 
-    // Validate mobile if being updated
     if (updateData.mobile) {
       const phoneRegex = /^\d{10}$/;
       if (!phoneRegex.test(updateData.mobile)) {
@@ -91,11 +100,10 @@ export async function PUT(
     }
 
     return NextResponse.json({ success: true, data: updatedUser }, { status: 200 });
-  } catch (error) {
-    console.error("Error updating user:", error);
+  } catch {
     return NextResponse.json(
       { success: false, error: "Failed to update user profile" },
       { status: 500 }
     );
   }
-}
+};

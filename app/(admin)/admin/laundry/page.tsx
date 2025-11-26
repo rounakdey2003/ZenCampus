@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Badge } from "@/components/ui/Badge";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
 import { 
   Search, 
   Droplet,
@@ -79,12 +79,10 @@ export default function LaundryManagementPage() {
     refetch(params);
   }, [searchQuery, filterStatus, filterType, refetch]);
 
-  // Automatic status checking - runs every 30 seconds
   useEffect(() => {
     const checkStatuses = async () => {
       try {
         await fetch("/api/laundry/check-status", { method: "POST" });
-        // Refetch bookings after status check
         const params: Record<string, string> = {};
         if (searchQuery) params.search = searchQuery;
         if (filterStatus !== "All") params.status = filterStatus;
@@ -95,10 +93,8 @@ export default function LaundryManagementPage() {
       }
     };
 
-    // Check immediately on mount
     checkStatuses();
 
-    // Then check every 30 seconds
     const interval = setInterval(checkStatuses, 30000);
 
     return () => clearInterval(interval);

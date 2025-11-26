@@ -7,9 +7,9 @@ export const dynamic = "force-dynamic";
 
 import Link from "next/link";
 import { DashboardHeader } from "@/components/layout/dashboard-header";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
 import { Droplet, Wind, Loader2 } from "lucide-react";
 import { useApi } from "@/hooks/useApi";
 import { useUser } from "@/hooks/useUser";
@@ -48,7 +48,6 @@ function WashingContent() {
   const { data: bookings, loading, error, refetch, post } = useApi<LaundryBooking[]>("/api/laundry");
   const { settings } = useSettings();
 
-  // Fetch machine statuses
   useEffect(() => {
     const fetchMachineStatuses = async () => {
       try {
@@ -74,22 +73,18 @@ function WashingContent() {
     refetch({ machineType: activeTab === "washing" ? "Washing Machine" : "Dryer", usn: studentUSN });
   }, [refetch, activeTab, studentUSN]);
 
-  // Automatic status checking - runs every 30 seconds
   useEffect(() => {
     const checkStatuses = async () => {
       try {
         await fetch("/api/laundry/check-status", { method: "POST" });
-        // Refetch bookings after status check to show updated data
         refetch({ machineType: activeTab === "washing" ? "Washing Machine" : "Dryer", usn: studentUSN });
       } catch (err) {
         console.error("Failed to check booking statuses:", err);
       }
     };
 
-    // Check immediately on mount
     checkStatuses();
 
-    // Then check every 30 seconds
     const interval = setInterval(checkStatuses, 30000);
 
     return () => clearInterval(interval);
@@ -101,7 +96,6 @@ function WashingContent() {
 
 
 
-  // Check if slot is available
   const isSlotAvailable = (machineNum: number, date: string, startTime: string, endTime: string): boolean => {
     if (!date || !startTime || !endTime) return true;
     
@@ -145,7 +139,6 @@ function WashingContent() {
       return;
     }
 
-    // Check max bookings per student
     const activeBookingsCount = myBookings.filter(b => 
       b.status === "Scheduled" || b.status === "In Progress"
     ).length;
@@ -175,12 +168,10 @@ function WashingContent() {
       setSelectedStartTime("");
       setSelectedEndTime("");
     } catch (err) {
-      // Check if it's a conflict error (another user booked the same slot)
       const errorMessage = err instanceof Error ? err.message : "Unknown error";
       
       if (errorMessage.includes("already booked")) {
         toast.error("Someone else just booked this slot. Please select a different time.");
-        // Refresh bookings to show current availability
         refetch({ machineType: activeTab === "washing" ? "Washing Machine" : "Dryer", usn: studentUSN });
       } else if (errorMessage.includes("maximum")) {
         toast.error(errorMessage);
@@ -321,7 +312,6 @@ function WashingContent() {
                     const status = machineStatuses[machine] || "Available";
                     const isDisabled = status === "Faulty" || status === "Repairing";
                     
-                    // Check if the selected time slot is available for this machine
                     const isSlotUnavailable = selectedDate && selectedStartTime && selectedEndTime 
                       ? !isSlotAvailable(machine, selectedDate, selectedStartTime, selectedEndTime)
                       : false;

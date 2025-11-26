@@ -7,26 +7,15 @@ export const dynamic = "force-dynamic";
 
 import Link from "next/link";
 import { DashboardHeader } from "@/components/layout/dashboard-header";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { Label } from "@/components/ui/Label";
+import { Badge } from "@/components/ui/Badge";
 import { Home, Bath, Loader2 } from "lucide-react";
 import { useApi } from "@/hooks/useApi";
 import { useUser } from "@/hooks/useUser";
 import { toast } from "sonner";
-
-interface Maintenance {
-  _id: string;
-  type: string;
-  title: string;
-  description: string;
-  roomNumber: string;
-  status: string;
-  priority: string;
-  submittedAt: string;
-}
 
 interface Maintenance {
   _id: string;
@@ -77,7 +66,6 @@ function RoomContent() {
     }
   }, [activeTab, refetchRoom, refetchCleaning, studentUSN]);
 
-  // APIs now return user-specific data, only filter by type for safety
   const myRoomComplaints = (roomComplaints || []).filter(r => r.type === "room");
   const myCleaningRequests = (cleaningRequests || []).filter(r => r.type === "Bathroom");
 

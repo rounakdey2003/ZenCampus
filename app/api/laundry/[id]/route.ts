@@ -1,12 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
+import { auth } from "@/auth";
 import LaundryBooking from "@/models/LaundryBooking";
 
-export async function PUT(
+export const PUT = async (
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
-) {
+) => {
   try {
+    const session = await auth();
+    if (!session?.user) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized - Authentication required" },
+        { status: 401 }
+      );
+    }
+
     await connectDB();
     const { id } = await params;
     
@@ -25,7 +34,6 @@ export async function PUT(
       );
     }
     
-    // Transform response to match frontend interface
     const transformedBooking = {
       _id: booking._id,
       studentName: booking.studentName,
@@ -47,13 +55,21 @@ export async function PUT(
       { status: 500 }
     );
   }
-}
+};
 
-export async function DELETE(
+export const DELETE = async (
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
-) {
+) => {
   try {
+    const session = await auth();
+    if (!session?.user) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized - Authentication required" },
+        { status: 401 }
+      );
+    }
+
     await connectDB();
     const { id } = await params;
     
@@ -74,4 +90,4 @@ export async function DELETE(
       { status: 500 }
     );
   }
-}
+};

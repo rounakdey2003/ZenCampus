@@ -7,9 +7,9 @@ export const dynamic = "force-dynamic";
 
 import Link from "next/link";
 import { DashboardHeader } from "@/components/layout/dashboard-header";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
 import { Coffee, Plus, Minus, ShoppingCart, Loader2, Receipt, Clock } from "lucide-react";
 import { useApi } from "@/hooks/useApi";
 import { useUser } from "@/hooks/useUser";
@@ -63,7 +63,6 @@ function CanteenContent() {
     autoFetch: false 
   });
 
-  // Fetch orders with USN filter when studentUSN is available
   useEffect(() => {
     if (studentUSN) {
       refetchOrders({ usn: studentUSN });
@@ -436,7 +435,6 @@ function CanteenContent() {
           </div>
         )}
 
-        {/* Past orders removed per request */}
       </div>
     </div>
   );

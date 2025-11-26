@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "@/components/ui/modal";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { Label } from "@/components/ui/Label";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "@/components/ui/Modal";
 import { Users, UserPlus, Edit, Trash2, Search, Loader2 } from "lucide-react";
 import { useApi } from "@/hooks/useApi";
 import { toast } from "sonner";
@@ -272,8 +272,8 @@ export default function StudentsManagementPage() {
               <Input name="room" id="room" placeholder="e.g., A-101" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password (default: 123456)</Label>
-              <Input name="password" id="password" type="password" placeholder="Enter password (optional)" minLength={6} />
+              <Label htmlFor="password">Password</Label>
+              <Input name="password" id="password" type="password" placeholder="Enter password (minimum 6 characters)" minLength={6} />
             </div>
           </form>
         </ModalBody>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Clock, Calendar } from "lucide-react";
 import { useApi } from "@/hooks/useApi";
 
@@ -20,7 +20,6 @@ interface TimetableDisplayProps {
 export function TimetableDisplay({ type }: TimetableDisplayProps) {
   const { data: allEntries, loading } = useApi<TimetableEntry[]>("/api/timetable", { autoFetch: true });
   
-  // Filter entries by type and active status
   const entries = (allEntries || []).filter(
     (entry) => entry.isActive && (entry.type === type || entry.type === "General")
   );

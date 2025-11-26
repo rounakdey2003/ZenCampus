@@ -6,10 +6,10 @@ import { DashboardHeader } from "@/components/layout/dashboard-header";
 
 export const dynamic = "force-dynamic";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { Label } from "@/components/ui/Label";
 import { Calendar, Phone, Loader2, X, Edit2 } from "lucide-react";
 import { useApi } from "@/hooks/useApi";
 import { toast } from "sonner";
@@ -88,7 +88,6 @@ export default function ProfilePage() {
         throw new Error(result.error || 'Failed to update profile');
       }
       
-      // Fetch updated data from database
       await refetch();
       
       setShowEditModal(false);

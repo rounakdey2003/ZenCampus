@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "@/components/ui/modal";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Badge } from "@/components/ui/Badge";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "@/components/ui/Modal";
 import { 
   Search, 
   Package,
@@ -89,7 +89,6 @@ export default function CleaningManagementPage() {
     refetchRoom({ ...params, type: "room" }); // Fetch room complaints from maintenance API
   }, [searchQuery, filterStatus, filterType, refetchCleaning, refetchRoom]);
 
-  // Combine bathroom cleaning requests and room complaints
   const allRequests: CleaningRequest[] = [
     ...(cleaningData || []),
     ...((roomData || []).map(r => ({
@@ -135,7 +134,6 @@ export default function CleaningManagementPage() {
       const request = filteredRequests.find(r => r._id === id);
       if (!request) return;
       
-      // Update in the appropriate API based on type
       if (request.type === "Room") {
         await putRoom(id, { status: newStatus });
       } else {
@@ -154,7 +152,6 @@ export default function CleaningManagementPage() {
   const scheduleRequest = async () => {
     if (selectedRequest && scheduleDate && assignedStaff) {
       try {
-        // Update in the appropriate API based on type
         if (selectedRequest.type === "Room") {
           await putRoom(selectedRequest._id, { 
             status: "Scheduled",

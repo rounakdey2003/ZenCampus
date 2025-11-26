@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
 import { 
   Settings,
   Save,
@@ -92,7 +92,6 @@ export default function SettingsPage() {
 
   const handleSave = async () => {
     try {
-      // Save settings
       const settingsResponse = await fetch("/api/settings", {
         method: "PUT",
         headers: {
@@ -110,7 +109,6 @@ export default function SettingsPage() {
         throw new Error(settingsData.error);
       }
 
-      // Sync machine counts with settings
       const machinesResponse = await fetch("/api/machines", {
         method: "PUT",
         headers: {
@@ -130,7 +128,6 @@ export default function SettingsPage() {
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
       
-      // Show success message with icon
       const successDiv = document.createElement('div');
       successDiv.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 z-50';
       successDiv.innerHTML = `

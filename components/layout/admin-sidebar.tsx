@@ -90,7 +90,6 @@ export function AdminSidebar({ onClose }: { onClose?: () => void }) {
 
   return (
     <aside className={cn("w-72 bg-background flex-col h-screen sticky top-0 p-4 hidden lg:flex", onClose && "flex h-full static")}>
-      {/* Header */}
       <div className="px-4 py-6 mb-6">
         <Link href="/admin">
           <div className="flex items-center gap-3">
@@ -105,7 +104,6 @@ export function AdminSidebar({ onClose }: { onClose?: () => void }) {
         </Link>
       </div>
 
-      {/* Admin Info */}
       <div className="px-4 mb-6">
         <div className="p-4 bg-secondary/30 rounded-xl flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center">
@@ -118,7 +116,6 @@ export function AdminSidebar({ onClose }: { onClose?: () => void }) {
         </div>
       </div>
 
-      {/* Navigation */}
       <nav className="flex-1 overflow-y-auto space-y-1">
         {adminNavItems.map((item) => (
           <Link
@@ -137,7 +134,6 @@ export function AdminSidebar({ onClose }: { onClose?: () => void }) {
         ))}
       </nav>
 
-      {/* Footer */}
       <div className="mt-auto pt-6">
         <button
           onClick={handleLogout}

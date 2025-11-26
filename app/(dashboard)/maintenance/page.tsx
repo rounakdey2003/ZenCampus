@@ -7,11 +7,11 @@ export const dynamic = "force-dynamic";
 
 import Link from "next/link";
 import { DashboardHeader } from "@/components/layout/dashboard-header";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { Label } from "@/components/ui/Label";
+import { Badge } from "@/components/ui/Badge";
 import { Zap, Hammer, Droplets, Loader2 } from "lucide-react";
 import { useApi } from "@/hooks/useApi";
 import { useUser } from "@/hooks/useUser";
@@ -53,7 +53,6 @@ function ElectricalContent() {
     refetch({ type: getMaintenanceType(), usn: studentUSN });
   }, [getMaintenanceType, activeTab, refetch, studentUSN]);
 
-  // API now returns user-specific data, only filter by type for safety
   const myRequests = (allRequests || []).filter(r => r.type === getMaintenanceType());
 
   const handleSubmit = async (e: React.FormEvent) => {

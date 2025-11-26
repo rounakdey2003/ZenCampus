@@ -1,8 +1,3 @@
-/**
- * System Settings Utility
- * Provides centralized access to system settings across the application
- */
-
 export interface SystemSettings {
   _id?: string;
   hostelName: string;
@@ -50,26 +45,20 @@ const DEFAULT_SETTINGS: SystemSettings = {
   twoFactorAuth: false,
 };
 
-// Cache for settings to avoid repeated API calls
 let cachedSettings: SystemSettings | null = null;
 let cacheTimestamp: number = 0;
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+const CACHE_DURATION = 5 * 60 * 1000;
 
-/**
- * Fetches system settings from the API
- * Uses caching to minimize API calls
- */
 export async function getSystemSettings(): Promise<SystemSettings> {
   const now = Date.now();
   
-  // Return cached settings if still valid
   if (cachedSettings && (now - cacheTimestamp) < CACHE_DURATION) {
     return cachedSettings;
   }
 
   try {
     const response = await fetch("/api/settings", {
-      next: { revalidate: 300 }, // Revalidate every 5 minutes
+      next: { revalidate: 300 },
     });
 
     if (!response.ok) {
@@ -82,7 +71,6 @@ export async function getSystemSettings(): Promise<SystemSettings> {
       return DEFAULT_SETTINGS;
     }
 
-    // Update cache
     cachedSettings = settings;
     cacheTimestamp = now;
 
@@ -92,18 +80,11 @@ export async function getSystemSettings(): Promise<SystemSettings> {
   }
 }
 
-/**
- * Clears the settings cache
- * Call this after updating settings to force a refresh
- */
 export function clearSettingsCache() {
   cachedSettings = null;
   cacheTimestamp = 0;
 }
 
-/**
- * Gets a specific setting value
- */
 export async function getSetting<K extends keyof SystemSettings>(
   key: K
 ): Promise<SystemSettings[K]> {
@@ -111,9 +92,6 @@ export async function getSetting<K extends keyof SystemSettings>(
   return settings[key];
 }
 
-/**
- * Checks if canteen is currently open based on settings
- */
 export function isCanteenOpen(settings: SystemSettings): boolean {
   const now = new Date();
   const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
@@ -121,38 +99,25 @@ export function isCanteenOpen(settings: SystemSettings): boolean {
   return currentTime >= settings.canteenOpenTime && currentTime <= settings.canteenCloseTime;
 }
 
-/**
- * Validates if order meets minimum amount requirement
- */
 export function validateOrderAmount(amount: number, settings: SystemSettings): boolean {
   return amount >= settings.minOrderAmount;
 }
 
-/**
- * Calculates total with delivery charges
- */
 export function calculateOrderTotal(subtotal: number, settings: SystemSettings): number {
   return subtotal + settings.deliveryCharges;
 }
 
-/**
- * Checks if student can book more laundry slots
- */
 export function canBookLaundry(currentBookings: number, settings: SystemSettings): boolean {
   return currentBookings < settings.maxBookingsPerStudent;
 }
 
-/**
- * Gets available time slots based on slot duration
- */
 export function getTimeSlots(settings: SystemSettings): string[] {
   const slots: string[] = [];
   const duration = settings.slotDuration;
   
-  // Generate slots from 7 AM to 10 PM
   for (let hour = 7; hour <= 22; hour++) {
     for (let minute = 0; minute < 60; minute += duration) {
-      if (hour === 22 && minute > 0) break; // Don't go past 10 PM
+      if (hour === 22 && minute > 0) break;
       
       const startHour = hour;
       const startMin = minute;

@@ -17,7 +17,6 @@ export function MobileSidebar() {
         <Menu className="w-6 h-6" />
       </button>
 
-      {/* Backdrop */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-40 lg:hidden"
@@ -25,7 +24,6 @@ export function MobileSidebar() {
         />
       )}
 
-      {/* Sidebar Container */}
       <div
         className={cn(
           "fixed inset-y-0 left-0 z-50 w-72 bg-background transform transition-transform duration-300 ease-in-out lg:hidden",

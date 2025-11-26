@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
+import { requireAuth } from "@/lib/auth-middleware";
 import { MenuItemModel as MenuItem } from "@/models/Canteen";
 
-export async function GET(request: NextRequest) {
+export const GET = requireAuth(async (request: NextRequest, session: unknown) => {
   try {
     await connectDB();
     
@@ -30,14 +31,13 @@ export async function GET(request: NextRequest) {
     
     const menuItems = await MenuItem.find(query).sort({ mealType: 1, name: 1 });
     
-    // Transform mealType to category for frontend compatibility
     const transformedItems = menuItems.map(item => ({
       _id: item._id,
       name: item.name,
       description: item.description,
       price: item.price,
       type: item.type,
-      category: item.mealType.charAt(0).toUpperCase() + item.mealType.slice(1), // Convert to capitalized
+      category: item.mealType.charAt(0).toUpperCase() + item.mealType.slice(1),
       mealType: item.mealType,
       availableFrom: item.availableFrom,
       availableTo: item.availableTo,
@@ -53,15 +53,14 @@ export async function GET(request: NextRequest) {
       { status: 500 }
     );
   }
-}
+});
 
-export async function POST(request: NextRequest) {
+export const POST = requireAuth(async (request: NextRequest, session: unknown) => {
   try {
     await connectDB();
     
     const body = await request.json();
     
-    // Validate required fields
     if (!body.name || !body.description || !body.price || !body.category) {
       return NextResponse.json(
         { success: false, error: "Missing required fields: name, description, price, category" },
@@ -69,13 +68,12 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Transform frontend data to match schema
     const menuItemData = {
       name: body.name,
       description: body.description,
-      price: parseFloat(body.price), // Ensure price is a number
-      type: body.type || "veg", // Default to veg if not specified
-      mealType: body.category.toLowerCase(), // Convert category to mealType (Breakfast -> breakfast)
+      price: parseFloat(body.price),
+      type: body.type || "veg",
+      mealType: body.category.toLowerCase(),
       availableFrom: body.availableFrom || "06:00",
       availableTo: body.availableTo || "22:00",
       available: body.available !== undefined ? body.available : true,
@@ -83,7 +81,6 @@ export async function POST(request: NextRequest) {
     
     const menuItem = await MenuItem.create(menuItemData);
     
-    // Transform mealType back to category for frontend compatibility
     const transformedItem = {
       _id: menuItem._id,
       name: menuItem.name,
@@ -106,4 +103,4 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
-}
+});

@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "@/components/ui/modal";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { Label } from "@/components/ui/Label";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "@/components/ui/Modal";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
@@ -74,7 +74,6 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   
-  // Modals
   const [showForgotModal, setShowForgotModal] = useState(false);
   const [showAdminModal, setShowAdminModal] = useState(false);
   const [forgotStep, setForgotStep] = useState(1);
@@ -85,7 +84,6 @@ export default function LoginPage() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  // Form states
   const [usn, setUsn] = useState("");
   const [password, setPassword] = useState("");
   const [adminId, setAdminId] = useState("");
@@ -93,7 +91,6 @@ export default function LoginPage() {
   const [adminLoading, setAdminLoading] = useState(false);
   const [adminError, setAdminError] = useState("");
 
-  // Slide auto-advance
   useState(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -118,7 +115,6 @@ export default function LoginPage() {
         setError("Invalid credentials. Please try again.");
         toast.error("Invalid credentials. Please try again.");
       } else if (result?.ok) {
-        // Force a hard navigation to ensure session is loaded
         window.location.href = "/dashboard";
       }
     } catch (err) {
@@ -147,10 +143,7 @@ export default function LoginPage() {
         setAdminError("Invalid admin credentials. Please try again.");
         toast.error("Invalid admin credentials. Please try again.");
       } else if (result?.ok) {
-        // Successful login - redirect to admin panel
         setShowAdminModal(false);
-        // Force a hard navigation to ensure session is loaded
-        window.location.href = "/admin";
       }
     } catch (err) {
       setAdminError("An error occurred. Please try again.");
@@ -165,10 +158,8 @@ export default function LoginPage() {
     e.preventDefault();
     
     if (forgotStep === 1) {
-      // Verify USN and mobile
       setForgotError("");
-      setForgotLoading(true);
-
+      
       try {
         const response = await fetch("/api/users/" + forgotUsn.toUpperCase());
         const result = await response.json();
@@ -186,18 +177,15 @@ export default function LoginPage() {
           return;
         }
 
-        // Move to step 2
         setForgotStep(2);
         setForgotError("");
-      } catch {
+      } catch (err) {
         setForgotError("Failed to verify credentials");
       } finally {
         setForgotLoading(false);
       }
     } else {
-      // Reset password
       if (newPassword !== confirmPassword) {
-        setForgotError("Passwords do not match");
         return;
       }
 

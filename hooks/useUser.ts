@@ -8,9 +8,6 @@ export interface UserData {
   role: string;
 }
 
-/**
- * Custom hook to fetch current user data from session
- */
 export function useUser() {
   const [user, setUser] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -32,7 +29,7 @@ export function useUser() {
       setLoading(true);
       setError(null);
       
-      const response = await fetch("/api/auth/me");
+      const response = await fetch("/api/auth/me", { credentials: "include" });
       
       if (!response.ok) {
         throw new Error("Failed to fetch user data");
@@ -47,7 +44,6 @@ export function useUser() {
       setUser(data.user);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unknown error");
-      console.error("Error fetching user:", err);
     } finally {
       setLoading(false);
     }

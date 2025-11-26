@@ -1,18 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
+import { auth } from "@/auth";
 import ForumPost from "@/models/ForumPost";
 
-export async function PUT(
+export const PUT = async (
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
-) {
+) => {
   try {
+    const session = await auth();
+    if (!session?.user) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized - Authentication required" },
+        { status: 401 }
+      );
+    }
+
     await connectDB();
     const { id } = await params;
     
     const body = await request.json();
     
-    // Handle reply action
     if (body.action === "reply" && body.reply) {
       const post = await ForumPost.findById(id);
       
@@ -43,7 +51,6 @@ export async function PUT(
       return NextResponse.json({ success: true, data: updatedPost });
     }
     
-    // Handle like/unlike logic
     if (body.action === "like" && body.usn) {
       const post = await ForumPost.findById(id);
       
@@ -59,7 +66,6 @@ export async function PUT(
       
       let updatedPost;
       if (hasLiked) {
-        // Unlike
         updatedPost = await ForumPost.findByIdAndUpdate(
           id,
           {
@@ -70,7 +76,6 @@ export async function PUT(
           { new: true }
         );
       } else {
-        // Like
         updatedPost = await ForumPost.findByIdAndUpdate(
           id,
           {
@@ -85,9 +90,7 @@ export async function PUT(
       return NextResponse.json({ success: true, data: updatedPost });
     }
     
-    // Handle regular updates
     const post = await ForumPost.findByIdAndUpdate(
-      id,
       { ...body, lastActivity: new Date() },
       { new: true }
     );
@@ -107,13 +110,21 @@ export async function PUT(
       { status: 500 }
     );
   }
-}
+};
 
-export async function DELETE(
+export const DELETE = async (
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
-) {
+) => {
   try {
+    const session = await auth();
+    if (!session?.user) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized - Authentication required" },
+        { status: 401 }
+      );
+    }
+
     await connectDB();
     const { id } = await params;
     
@@ -134,4 +145,4 @@ export async function DELETE(
       { status: 500 }
     );
   }
-}
+};

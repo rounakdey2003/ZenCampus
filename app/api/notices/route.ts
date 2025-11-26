@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
+import { requireAuth } from "@/lib/auth-middleware";
 import Notice from "@/models/Notice";
 
-export async function GET(request: NextRequest) {
+export const GET = requireAuth(async (request: NextRequest, session: unknown) => {
   try {
     await connectDB();
     
@@ -36,9 +37,9 @@ export async function GET(request: NextRequest) {
     const message = error instanceof Error ? error.message : "Failed to fetch notices";
     return NextResponse.json({ success: false, error: message }, { status: 500 });
   }
-}
+});
 
-export async function POST(request: NextRequest) {
+export const POST = requireAuth(async (request: NextRequest, session: unknown) => {
   try {
     await connectDB();
     
@@ -52,4 +53,4 @@ export async function POST(request: NextRequest) {
     const message = error instanceof Error ? error.message : "Failed to create notice";
     return NextResponse.json({ success: false, error: message }, { status: 500 });
   }
-}
+});

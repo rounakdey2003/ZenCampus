@@ -54,7 +54,6 @@ laundryBookingSchema.pre('save', function(next) {
   next();
 });
 
-// Compound index to optimize conflict detection queries
 laundryBookingSchema.index({ 
   machineType: 1, 
   machineNumber: 1, 

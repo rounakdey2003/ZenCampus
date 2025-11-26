@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { DashboardHeader } from "@/components/layout/dashboard-header";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/Card";
 import { Users, Loader2, Droplet, Home, Coffee, MessageSquare, Bell } from "lucide-react";
 import { useApi } from "@/hooks/useApi";
 import { useUser } from "@/hooks/useUser";
@@ -48,13 +48,6 @@ interface ForumPost {
   status: string;
 }
 
-interface Maintenance {
-  _id: string;
-  status: string;
-  type: string;
-  studentUSN: string;
-}
-
 interface Poll {
   _id: string;
   status: string;
@@ -73,7 +66,6 @@ export default function DashboardPage() {
   const studentUSN = user?.usn || "";
   const [refreshInterval, setRefreshInterval] = useState(30);
   
-  // ZenWash - Separate API calls for Washing and Dryer (matches washing/page.tsx logic)
   const { data: washingBookings, loading: washingLoading, refetch: refetchWashing } = useApi<LaundryBooking[]>(
     "/api/laundry",
     { autoFetch: false }
@@ -83,7 +75,6 @@ export default function DashboardPage() {
     { autoFetch: false }
   );
   
-  // ZenMaintenance - Separate API calls for each type (matches maintenance/page.tsx logic)
   const { data: electricalRequests, loading: electricalLoading, refetch: refetchElectrical } = useApi<Maintenance[]>(
     "/api/maintenance",
     { autoFetch: false }
@@ -97,7 +88,6 @@ export default function DashboardPage() {
     { autoFetch: false }
   );
   
-  // ZenCleaning - Separate API calls for Room and Bathroom (matches room/page.tsx logic)
   const { data: roomRequests, loading: roomLoading, refetch: refetchRoom } = useApi<Maintenance[]>(
     "/api/maintenance",
     { autoFetch: false }
@@ -107,7 +97,6 @@ export default function DashboardPage() {
     { autoFetch: false }
   );
   
-  // ZenCanteen - Separate API calls for Menu and Orders (matches canteen/page.tsx logic)
   const { data: menuItems, loading: menuLoading, refetch: refetchMenu } = useApi<MenuItem[]>(
     "/api/canteen/menu",
     { autoFetch: false }
@@ -117,7 +106,6 @@ export default function DashboardPage() {
     { autoFetch: false }
   );
   
-  // ZenStudent - Forum posts, Warden complaints, Polls (matches student/page.tsx logic)
   const { data: forumPosts, loading: forumLoading, refetch: refetchPosts } = useApi<ForumPost[]>(
     "/api/forum/posts",
     { autoFetch: false }
@@ -131,7 +119,6 @@ export default function DashboardPage() {
     { autoFetch: false }
   );
   
-  // ZenNotice - Global notices (matches notice/page.tsx logic)
   const { data: notices, loading: noticesLoading, refetch: refetchNotices } = useApi<Notice[]>(
     "/api/notices",
     { autoFetch: false }
@@ -141,10 +128,8 @@ export default function DashboardPage() {
                    plumbingLoading || roomLoading || bathroomLoading || menuLoading || 
                    ordersLoading || forumLoading || wardenLoading || pollsLoading || noticesLoading;
   
-  // Fetch all data when studentUSN is available (matches individual page patterns)
   useEffect(() => {
     if (studentUSN) {
-      // User-scoped data
       refetchWashing({ machineType: "Washing Machine", usn: studentUSN });
       refetchDryer({ machineType: "Dryer", usn: studentUSN });
       refetchElectrical({ type: "Electrical", usn: studentUSN });
@@ -156,19 +141,15 @@ export default function DashboardPage() {
       refetchWarden({ type: "warden", usn: studentUSN });
     }
     
-    // Global data (no user filter needed)
-    refetchMenu({ available: "true" });
     refetchPosts({});
     refetchPolls({});
     refetchNotices({ status: "Active" });
   }, [studentUSN, refetchWashing, refetchDryer, refetchElectrical, refetchCarpentry, refetchPlumbing, refetchRoom, refetchBathroom, refetchOrders, refetchWarden, refetchMenu, refetchPosts, refetchPolls, refetchNotices]);
 
-  // Auto-refresh every 30 seconds
   useEffect(() => {
     if (!studentUSN) return;
     
     const interval = setInterval(() => {
-      // User-scoped data
       refetchWashing({ machineType: "Washing Machine", usn: studentUSN });
       refetchDryer({ machineType: "Dryer", usn: studentUSN });
       refetchElectrical({ type: "Electrical", usn: studentUSN });
@@ -179,9 +160,7 @@ export default function DashboardPage() {
       refetchOrders({ usn: studentUSN });
       refetchWarden({ type: "warden", usn: studentUSN });
       
-      // Global data
       refetchMenu({ available: "true" });
-      refetchPosts({});
       refetchPolls({});
       refetchNotices({ status: "Active" });
       setRefreshInterval(30);
@@ -190,7 +169,6 @@ export default function DashboardPage() {
     return () => clearInterval(interval);
   }, [studentUSN, refetchWashing, refetchDryer, refetchElectrical, refetchCarpentry, refetchPlumbing, refetchRoom, refetchBathroom, refetchOrders, refetchWarden, refetchMenu, refetchPosts, refetchPolls, refetchNotices]);
 
-  // Countdown timer
   useEffect(() => {
     const countdown = setInterval(() => {
       setRefreshInterval(prev => prev > 0 ? prev - 1 : 30);
@@ -199,7 +177,6 @@ export default function DashboardPage() {
     return () => clearInterval(countdown);
   }, []);
 
-  // Apply client-side filters for safety (same pattern as individual pages)
   const myWashingBookings = (washingBookings || []).filter(b => b.machineType === "Washing Machine");
   const myDryerBookings = (dryerBookings || []).filter(b => b.machineType === "Dryer");
   const myElectricalRequests = (electricalRequests || []).filter(r => r.type === "Electrical");
@@ -208,21 +185,17 @@ export default function DashboardPage() {
   const myRoomRequests = (roomRequests || []).filter(r => r.type === "room");
   const myBathroomRequests = (bathroomRequests || []).filter(r => r.type === "Bathroom");
   
-  // ZenCanteen insights - Split by Menu Items and Orders
   const myOrders = orders || [];
   const availableMenuItems = (menuItems || []).filter(m => m.available).length;
   const totalSpent = myOrders.reduce((sum, o) => sum + o.total, 0);
   
-  // ZenStudent insights - Split by Discussions, Warden Complaints, Polls
   const myDiscussions = (forumPosts || [])
     .filter(p => (p.status === "Active" || p.status === "Resolved") && p.authorUSN === studentUSN).length;
   const myWardenComplaints = (wardenComplaints || []).length;
   const activePolls = (polls || []).filter(p => p.status === "Active").length;
-  
-  // ZenNotice insights (notices are global, already filtered by status="Active" at API level)
-  const activeNotices = notices || [];
-  const urgentNotices = activeNotices.filter(n => n.priority === "High").length;
-  const expiringSoonNotices = activeNotices.filter(n => {
+  const activeNotices = (notices || []).filter(n => n.status === "Active").length;
+  const urgentNotices = (notices || []).filter(n => n.priority === "High").length;
+  const expiringSoonNotices = (notices || []).filter(n => {
     const daysLeft = Math.ceil((new Date(n.expiresAt).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
     return daysLeft <= 3 && daysLeft > 0;
   }).length;
@@ -462,7 +435,7 @@ export default function DashboardPage() {
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-600">My Notices</span>
-                    <span className="text-xl font-bold text-gray-900">{activeNotices.length}</span>
+                    <span className="text-xl font-bold text-gray-900">{activeNotices}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-600">Urgent</span>

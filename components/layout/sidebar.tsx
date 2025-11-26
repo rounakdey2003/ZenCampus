@@ -110,7 +110,6 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
     router.push("/login");
   };
 
-  // Helper function to check if a link is active
   const isLinkActive = (href: string) => {
     const [linkPath, linkQuery] = href.split('?');
     const currentTab = searchParams.get('tab');
@@ -121,7 +120,6 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
 
   return (
     <aside className={cn("w-72 bg-background flex-col h-screen sticky top-0 p-4 hidden lg:flex", onClose && "flex h-full static")}>
-      {/* Header */}
       <div className="px-4 py-6 mb-6">
         <Link href="/dashboard">
           <h1 className="text-2xl font-bold tracking-tight text-foreground">
@@ -130,7 +128,6 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
         </Link>
       </div>
 
-      {/* Navigation */}
       <nav className="flex-1 overflow-y-auto space-y-1">
         {navItems.map((item, index) => (
           <div key={index}>
@@ -192,7 +189,6 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
         ))}
       </nav>
 
-      {/* Footer */}
       <div className="mt-auto pt-6">
         <button
           onClick={handleLogout}

@@ -1,16 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import User from "@/models/User";
+import { requireAdmin } from "@/lib/auth-middleware";
 
-export async function GET(request: NextRequest) {
+export const GET = requireAdmin(async (request: NextRequest) => {
   try {
     await connectDB();
-    
+
     const searchParams = request.nextUrl.searchParams;
     const search = searchParams.get("search");
-    
+
     let query: Record<string, unknown> = { role: "student" };
-    
+
     if (search) {
       query = {
         ...query,
@@ -21,9 +22,11 @@ export async function GET(request: NextRequest) {
         ],
       };
     }
-    
-    const students = await User.find(query).select("-password").sort({ createdAt: -1 });
-    
+
+    const students = await User.find(query)
+      .select("-password")
+      .sort({ createdAt: -1 });
+
     return NextResponse.json({ success: true, data: students });
   } catch (error) {
     console.error("Error fetching students:", error);
@@ -32,16 +35,15 @@ export async function GET(request: NextRequest) {
       { status: 500 }
     );
   }
-}
+});
 
-export async function POST(request: NextRequest) {
+export const POST = requireAdmin(async (request: NextRequest) => {
   try {
     await connectDB();
-    
+
     const body = await request.json();
     const { usn, name, mobile, room, email, password } = body;
-    
-    // Check if student already exists
+
     const existingStudent = await User.findOne({ usn });
     if (existingStudent) {
       return NextResponse.json(
@@ -49,21 +51,30 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
-    
+
+    if (!password || password.length < 8) {
+      return NextResponse.json(
+        { success: false, error: "Password is required and must be at least 8 characters" },
+        { status: 400 }
+      );
+    }
+
     const student = await User.create({
       usn,
       name,
       mobile,
       room,
       email,
-      password: password || "123456", // Default password
+      password,
       role: "student",
     });
-    
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password: _password, ...studentData } = student.toObject();
-    
-    return NextResponse.json({ success: true, data: studentData }, { status: 201 });
+
+    const { password: _, ...studentData } = student.toObject();
+
+    return NextResponse.json(
+      { success: true, data: studentData },
+      { status: 201 }
+    );
   } catch (error) {
     console.error("Error creating student:", error);
     return NextResponse.json(
@@ -71,4 +82,4 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
-}
+});

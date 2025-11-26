@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { MOBILE_REGEX, USN_REGEX } from "@/lib/utils";
 
-// Auth Schemas
 export const loginSchema = z.object({
   usn: z
     .string()
@@ -24,24 +23,12 @@ export const registerSchema = z.object({
     .regex(MOBILE_REGEX, "Mobile number must be exactly 10 digits"),
 });
 
-
-
-
-
-
-
-// Machine Schemas
 export const bookMachineSchema = z.object({
   machineNumber: z.number().int().positive(),
   durationMinutes: z.number().int().positive(),
   usn: z.string().min(1),
 });
 
-
-
-
-
-// Complaint Schemas
 export const createComplaintSchema = z.object({
   category: z.enum(["electrical", "plumbing", "carpentry", "room", "bathroom"]),
   usn: z.string().min(1),
@@ -49,7 +36,6 @@ export const createComplaintSchema = z.object({
   location: z.string().min(1, "Location is required"),
 });
 
-// Notice Schemas
 export const createNoticeSchema = z.object({
   title: z.string().min(1, "Title is required"),
   content: z.string().min(1, "Content is required"),
@@ -57,7 +43,6 @@ export const createNoticeSchema = z.object({
   postedBy: z.string().min(1, "Posted by is required"),
 });
 
-// Menu Item Schemas
 export const createMenuItemSchema = z.object({
   name: z.string().min(1, "Item name is required"),
   description: z.string().min(1, "Description is required"),
@@ -69,7 +54,6 @@ export const createMenuItemSchema = z.object({
   available: z.boolean().default(true),
 });
 
-// Canteen Order Schemas
 export const createOrderSchema = z.object({
   userUSN: z.string().min(1),
   userName: z.string().min(1),
@@ -79,7 +63,6 @@ export const createOrderSchema = z.object({
   instructions: z.string().optional(),
 });
 
-// Student Forum Schemas
 export const createDiscussionSchema = z.object({
   usn: z.string().min(1),
   userName: z.string().min(1),
@@ -110,13 +93,9 @@ export const votePollSchema = z.object({
   optionIndex: z.number().int().nonnegative(),
 });
 
-// Export types
 export type LoginInput = z.infer<typeof loginSchema>;
 export type RegisterInput = z.infer<typeof registerSchema>;
-
-
 export type BookMachineInput = z.infer<typeof bookMachineSchema>;
-
 export type CreateComplaintInput = z.infer<typeof createComplaintSchema>;
 export type CreateNoticeInput = z.infer<typeof createNoticeSchema>;
 export type CreateMenuItemInput = z.infer<typeof createMenuItemSchema>;

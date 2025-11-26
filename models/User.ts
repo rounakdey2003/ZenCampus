@@ -78,7 +78,6 @@ const userSchema = new Schema<IUserDocument>(
   }
 );
 
-// Hash password before saving
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   const hashedPassword = await bcrypt.hash(this.password as string, 10);
@@ -86,14 +85,12 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-// Method to compare passwords
 userSchema.methods.comparePassword = async function (
   candidatePassword: string
 ): Promise<boolean> {
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
-// Prevent model recompilation in development
 const UserModel: Model<IUserDocument> =
   (mongoose.models?.User as Model<IUserDocument>) || mongoose.model<IUserDocument>("User", userSchema);
 

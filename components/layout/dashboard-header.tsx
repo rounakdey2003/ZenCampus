@@ -13,7 +13,6 @@ export function DashboardHeader({ title }: { title: string }) {
 
   useEffect(() => {
     if (showQRModal && session?.user?.usn) {
-      // Generate QR Code
       QRCode.toDataURL(session.user.usn, {
         width: 300,
         margin: 2,
@@ -55,7 +54,6 @@ export function DashboardHeader({ title }: { title: string }) {
         </div>
       </header>
 
-      {/* QR Code Modal */}
       {showQRModal && (
         <div 
           className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50 p-4"

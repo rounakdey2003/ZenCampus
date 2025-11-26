@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
+import { requireAuth } from "@/lib/auth-middleware";
 import { WashingMachine, DryerMachine } from "@/models/Machine";
 
-export async function GET(request: NextRequest) {
+export const GET = requireAuth(async (request: NextRequest, session: unknown) => {
   try {
     await connectDB();
     
     const searchParams = request.nextUrl.searchParams;
-    const type = searchParams.get("type"); // "washing" or "dryer"
+    const type = searchParams.get("type");
     
     if (type === "washing") {
       const machines = await WashingMachine.find().sort({ machineNumber: 1 });
@@ -16,7 +17,6 @@ export async function GET(request: NextRequest) {
       const machines = await DryerMachine.find().sort({ machineNumber: 1 });
       return NextResponse.json(machines);
     } else {
-      // Return both types
       const washingMachines = await WashingMachine.find().sort({ machineNumber: 1 });
       const dryers = await DryerMachine.find().sort({ machineNumber: 1 });
       return NextResponse.json({
@@ -34,9 +34,9 @@ export async function GET(request: NextRequest) {
       { status: 500 }
     );
   }
-}
+});
 
-export async function POST(request: NextRequest) {
+export const POST = requireAuth(async (request: NextRequest, session: unknown) => {
   try {
     await connectDB();
     
@@ -66,10 +66,9 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
-}
+});
 
-// Bulk initialize machines
-export async function PUT(request: NextRequest) {
+export const PUT = requireAuth(async (request: NextRequest, session: unknown) => {
   try {
     await connectDB();
     
@@ -77,11 +76,9 @@ export async function PUT(request: NextRequest) {
     const { washingCount, dryerCount } = body;
     
     if (washingCount !== undefined) {
-      // Get existing washing machines
       const existingWashing = await WashingMachine.find();
       const existingNumbers = existingWashing.map(m => m.machineNumber);
       
-      // Add new machines if needed
       for (let i = 1; i <= washingCount; i++) {
         if (!existingNumbers.includes(i)) {
           await WashingMachine.create({
@@ -92,16 +89,13 @@ export async function PUT(request: NextRequest) {
         }
       }
       
-      // Remove machines beyond the count
       await WashingMachine.deleteMany({ machineNumber: { $gt: washingCount } });
     }
     
     if (dryerCount !== undefined) {
-      // Get existing dryers
       const existingDryers = await DryerMachine.find();
       const existingNumbers = existingDryers.map(m => m.machineNumber);
       
-      // Add new machines if needed
       for (let i = 1; i <= dryerCount; i++) {
         if (!existingNumbers.includes(i)) {
           await DryerMachine.create({
@@ -112,7 +106,6 @@ export async function PUT(request: NextRequest) {
         }
       }
       
-      // Remove machines beyond the count
       await DryerMachine.deleteMany({ machineNumber: { $gt: dryerCount } });
     }
     
@@ -133,4 +126,4 @@ export async function PUT(request: NextRequest) {
       { status: 500 }
     );
   }
-}
+});

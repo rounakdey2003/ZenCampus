@@ -1,6 +1,5 @@
 import { Types } from "mongoose";
 
-// User Types
 export interface User {
   _id: Types.ObjectId | string;
   usn: string;
@@ -24,7 +23,6 @@ export interface User {
 
 
 
-// Machine Types
 export type MachineStatus = "Available" | "In Use" | "Faulty" | "Repairing";
 
 export interface Machine {
@@ -39,7 +37,6 @@ export interface Machine {
   lastUpdated: Date;
 }
 
-// Complaint Types
 export type ComplaintCategory = "electrical" | "plumbing" | "carpentry" | "room" | "bathroom";
 export type ComplaintStatus = "pending" | "completed";
 
@@ -56,7 +53,6 @@ export interface Complaint {
   completedAt: Date | null;
 }
 
-// Notice Types
 export type NoticeCategory = "General" | "Academic" | "Event" | "Urgent" | "Maintenance";
 export type NoticePriority = "Low" | "Medium" | "High";
 export type NoticeStatus = "Active" | "Archived";
@@ -75,7 +71,6 @@ export interface Notice {
   updatedAt: Date;
 }
 
-// Canteen Types
 export type FoodType = "veg" | "non-veg";
 export type MealType = "breakfast" | "lunch" | "snacks" | "dinner";
 export type OrderStatus = "pending" | "preparing" | "delivered" | "cancelled";
@@ -107,7 +102,6 @@ export interface CanteenOrder {
   createdAt: Date;
 }
 
-// Student Forum Types
 export type DiscussionType = "public" | "anonymous";
 export type WardenComplaintStatus = "pending" | "in-progress" | "resolved";
 
@@ -160,16 +154,13 @@ export interface Poll {
   createdAt: Date;
 }
 
-// Dashboard Stats
 export interface DashboardStats {
   totalStudents: number;
   workDoneToday: number;
   dueWork: number;
 }
 
-// API Response Types
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = any> { // eslint-disable-line @typescript-eslint/no-explicit-any
   success: boolean;
   message?: string;
   data?: T;

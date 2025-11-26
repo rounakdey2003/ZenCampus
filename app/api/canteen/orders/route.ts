@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
+import { requireAuth } from "@/lib/auth-middleware";
 import CanteenOrder from "@/models/CanteenOrder";
 
-export async function GET(request: NextRequest) {
+export const GET = requireAuth(async (request: NextRequest, session: unknown) => {
   try {
     await connectDB();
     
@@ -12,8 +13,6 @@ export async function GET(request: NextRequest) {
     
     const query: Record<string, string> = {};
     
-    // CRITICAL: Filter orders by student USN for data isolation
-    // Only return orders for the requesting student unless admin
     if (studentUSN) {
       query.studentUSN = studentUSN;
     }
@@ -31,15 +30,14 @@ export async function GET(request: NextRequest) {
       { status: 500 }
     );
   }
-}
+});
 
-export async function POST(request: NextRequest) {
+export const POST = requireAuth(async (request: NextRequest, session: unknown) => {
   try {
     await connectDB();
     
     const body = await request.json();
     
-    // Validate required fields
     if (!body.studentName || !body.studentUSN || !body.roomNumber) {
       return NextResponse.json(
         { success: false, error: "Student information is required" },
@@ -54,7 +52,6 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Calculate total if not provided
     const total = body.total || body.items.reduce((sum: number, item: { price: number; quantity: number }) => 
       sum + (item.price * item.quantity), 0
     );
@@ -78,4 +75,4 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
-}
+});

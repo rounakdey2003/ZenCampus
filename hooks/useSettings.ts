@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
 import { SystemSettings } from "@/lib/settings";
 
-/**
- * React hook for accessing system settings in client components
- */
 export function useSettings() {
   const [settings, setSettings] = useState<SystemSettings | null>(null);
   const [loading, setLoading] = useState(true);
@@ -29,7 +26,6 @@ export function useSettings() {
       setSettings(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unknown error");
-      console.error("Error fetching settings:", err);
     } finally {
       setLoading(false);
     }
