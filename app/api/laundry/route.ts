@@ -4,7 +4,7 @@ import LaundryBooking from "@/models/LaundryBooking";
 import { requireAuth } from "@/lib/auth-middleware";
 import mongoose from "mongoose";
 
-export const GET = requireAuth(async (request: NextRequest, session: unknown) => {
+export const GET = requireAuth(async (request: NextRequest) => {
   try {
     await connectDB();
     
@@ -72,7 +72,7 @@ function checkTimeSlotOverlap(slot1: string, slot2: string): boolean {
   );
 }
 
-export const POST = requireAuth(async (request: NextRequest, session: unknown) => {
+export const POST = requireAuth(async (request: NextRequest) => {
   try {
     await connectDB();
     

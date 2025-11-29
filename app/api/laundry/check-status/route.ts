@@ -21,7 +21,7 @@ function parseDateTime(dateStr: string, timeStr: string): Date {
   return date;
 }
 
-export const POST = requireAuth(async (request: unknown, session: unknown) => {
+export const POST = requireAuth(async () => {
   try {
     await connectDB();
     

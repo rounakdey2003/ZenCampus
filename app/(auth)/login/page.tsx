@@ -176,7 +176,7 @@ export default function LoginPage() {
 
         setForgotStep(2);
         setForgotError("");
-      } catch (err) {
+      } catch {
         setForgotError("Failed to verify credentials");
       } finally {
         setForgotLoading(false);
@@ -230,9 +230,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-7xl bg-card rounded-3xl shadow-sm border border-border/50 overflow-hidden flex flex-col lg:flex-row">
-        {/* Left Section */}
         <div className="flex-1 bg-secondary/30 p-6 md:p-8 lg:p-16 flex flex-col items-center justify-center border-r border-border/50">
-          {/* Illustration */}
           <div className="w-full max-w-2xl mb-8">
             <div className="relative h-[320px] lg:h-[480px]">
               {slides.map((slide, index) => (
@@ -249,7 +247,6 @@ export default function LoginPage() {
             </div>
           </div>
 
-          {/* Content */}
           <div className="text-center">
             <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-4 tracking-tight">
               ZenCampus
@@ -258,7 +255,6 @@ export default function LoginPage() {
               Book laundry, cleaners & complaints — instantly.
             </p>
 
-            {/* Pagination */}
             <div className="flex gap-3 justify-center">
               {slides.map((_, index) => (
                 <button
@@ -276,7 +272,6 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* Right Section */}
         <div className="flex-1 p-6 md:p-8 lg:p-16 flex items-center justify-center">
           <div className="w-full max-w-md">
             <div className="text-center mb-12">
@@ -369,7 +364,6 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {/* Forgot Password Modal */}
       <Modal isOpen={showForgotModal} onClose={() => {
         setShowForgotModal(false);
         setForgotStep(1);
@@ -470,7 +464,6 @@ export default function LoginPage() {
         </ModalFooter>
       </Modal>
 
-      {/* Admin Modal */}
       <Modal isOpen={showAdminModal} onClose={() => setShowAdminModal(false)}>
         <ModalHeader onClose={() => setShowAdminModal(false)}>
           Admin Login

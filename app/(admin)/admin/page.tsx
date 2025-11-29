@@ -202,7 +202,6 @@ export default function AdminDashboard() {
 
   return (
     <div className="p-4 md:p-8 space-y-6 md:space-y-8">
-      {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Campus Management Dashboard</h1>
@@ -225,7 +224,6 @@ export default function AdminDashboard() {
         </div>
       ) : (
         <>
-          {/* Students Management */}
           <Card>
             <CardHeader className="border-b">
               <div className="flex items-center justify-between">
@@ -269,7 +267,6 @@ export default function AdminDashboard() {
             </CardContent>
           </Card>
 
-          {/* Warden Complaints Management */}
           <Card>
             <CardHeader className="border-b">
               <div className="flex items-center justify-between">
@@ -313,7 +310,6 @@ export default function AdminDashboard() {
             </CardContent>
           </Card>
 
-          {/* Maintenance Management */}
           <Card>
             <CardHeader className="border-b">
               <div className="flex items-center justify-between">
@@ -363,7 +359,6 @@ export default function AdminDashboard() {
             </CardContent>
           </Card>
 
-          {/* Laundry Management */}
           <Card>
             <CardHeader className="border-b">
               <div className="flex items-center justify-between">
@@ -430,7 +425,6 @@ export default function AdminDashboard() {
             </CardContent>
           </Card>
 
-          {/* Cleaning Management */}
           <Card>
             <CardHeader className="border-b">
               <div className="flex items-center justify-between">
@@ -476,7 +470,6 @@ export default function AdminDashboard() {
             </CardContent>
           </Card>
 
-          {/* Canteen Management */}
           <Card>
             <CardHeader className="border-b">
               <div className="flex items-center justify-between">
@@ -522,7 +515,6 @@ export default function AdminDashboard() {
             </CardContent>
           </Card>
 
-          {/* Student Forum Management */}
           <Card>
             <CardHeader className="border-b">
               <div className="flex items-center justify-between">
@@ -586,7 +578,6 @@ export default function AdminDashboard() {
             </CardContent>
           </Card>
 
-          {/* Notices Management */}
           <Card>
             <CardHeader className="border-b">
               <div className="flex items-center justify-between">

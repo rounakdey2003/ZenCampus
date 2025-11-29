@@ -37,10 +37,13 @@ const maintenanceSchema = new mongoose.Schema({
   },
   priority: {
     type: String,
-    enum: ["Low", "Medium", "High", "Urgent"],
+    enum: ["Low", "Normal", "Medium", "High", "Urgent"],
     default: "Medium"
   },
   assignedTo: {
+    type: String,
+  },
+  photoUrl: {
     type: String,
   },
   submittedAt: {

@@ -119,7 +119,6 @@ export default function PollsManagementPage() {
 
   return (
     <div className="p-8 space-y-6">
-      {/* Header */}
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Polls Management</h1>
@@ -131,7 +130,6 @@ export default function PollsManagementPage() {
         </Button>
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
         <Card>
           <CardContent className="p-4">
@@ -165,7 +163,6 @@ export default function PollsManagementPage() {
         </Card>
       </div>
 
-      {/* Polls List */}
       <Card>
         <CardHeader>
           <CardTitle>All Polls ({polls?.length || 0})</CardTitle>
@@ -265,7 +262,6 @@ export default function PollsManagementPage() {
         </CardContent>
       </Card>
 
-      {/* Create Poll Modal */}
       {showCreateModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowCreateModal(false)}>
           <Card className="w-full max-w-lg mx-4 max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
@@ -334,7 +330,6 @@ export default function PollsManagementPage() {
         </div>
       )}
 
-      {/* Details Modal */}
       {showDetailsModal && selectedPoll && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowDetailsModal(false)}>
           <Card className="w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>

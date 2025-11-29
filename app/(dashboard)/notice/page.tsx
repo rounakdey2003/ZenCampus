@@ -34,8 +34,7 @@ export default function NoticePage() {
     <div>
       <DashboardHeader title="Notices" />
       
-      <div className="p-4 md:p-8 space-y-6">
-        {/* Insights Section */}
+      <div className="p-4 md:p-8 space-y-6">        
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <Card>
             <CardContent className="p-4">

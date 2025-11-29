@@ -6,9 +6,10 @@ import { useSearchParams } from "next/navigation";
 export const dynamic = "force-dynamic";
 
 import Link from "next/link";
+import Image from "next/image";
 import { DashboardHeader } from "@/components/layout/dashboard-header";
 import { Card, CardContent, CardHeader, CardTitle, Button, Input, Label, Badge } from "@/components/ui";
-import { Zap, Hammer, Droplets, Loader2 } from "lucide-react";
+import { Zap, Hammer, Droplets, Loader2, Upload, X, ImageIcon } from "lucide-react";
 import { useApi } from "@/hooks/useApi";
 import { useUser } from "@/hooks/useUser";
 import { toast } from "sonner";
@@ -23,6 +24,7 @@ interface Maintenance {
   status: string;
   priority: string;
   submittedAt: string;
+  photoUrl?: string;
 }
 
 function ElectricalContent() {
@@ -35,7 +37,11 @@ function ElectricalContent() {
   const [formData, setFormData] = useState({
     location: "",
     description: "",
+    priority: "Medium",
   });
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
 
   const getMaintenanceType = useCallback(() => {
     if (activeTab === "electrical") return "Electrical";
@@ -51,6 +57,31 @@ function ElectricalContent() {
 
   const myRequests = (allRequests || []).filter(r => r.type === getMaintenanceType());
 
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+      if (!allowedTypes.includes(file.type)) {
+        toast.error("Invalid file type. Only JPEG, PNG, GIF, and WebP are allowed.");
+        return;
+      }      
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error("File too large. Maximum size is 5MB.");
+        return;
+      }
+      setPhotoFile(file);
+      setPhotoPreview(URL.createObjectURL(file));
+    }
+  };
+
+  const removePhoto = () => {
+    setPhotoFile(null);
+    if (photoPreview) {
+      URL.revokeObjectURL(photoPreview);
+      setPhotoPreview(null);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.location || !formData.description) {
@@ -59,6 +90,25 @@ function ElectricalContent() {
     }
 
     try {
+      setUploading(true);
+      let photoUrl: string | undefined;
+      
+      if (photoFile) {
+        const uploadFormData = new FormData();
+        uploadFormData.append("file", photoFile);
+
+        const uploadRes = await fetch("/api/maintenance/upload", {
+          method: "POST",
+          body: uploadFormData,
+        });
+
+        const uploadData = await uploadRes.json();
+        if (!uploadData.success) {
+          throw new Error(uploadData.error || "Failed to upload photo");
+        }
+        photoUrl = uploadData.url;
+      }
+
       await post({
         studentUSN,
         studentName,
@@ -66,14 +116,18 @@ function ElectricalContent() {
         type: getMaintenanceType(),
         title: `${getMaintenanceType()} Issue`,
         description: formData.description,
-        priority: "Medium",
+        priority: formData.priority,
         status: "Pending",
+        photoUrl,
       });
       toast.success("Complaint submitted successfully!");
-      setFormData({ location: "", description: "" });
+      setFormData({ location: "", description: "", priority: "Medium" });
+      removePhoto();
       refetch({ type: getMaintenanceType(), usn: studentUSN });
     } catch (err) {
       toast.error("Failed to submit: " + (err instanceof Error ? err.message : "Unknown error"));
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -81,8 +135,7 @@ function ElectricalContent() {
     <div>
       <DashboardHeader title="ZenMaintenance" />
       
-      <div className="p-4 md:p-8 space-y-6">
-        {/* Tab Navigation */}
+      <div className="p-4 md:p-8 space-y-6">        
         <div className="flex gap-2 md:gap-4 border-b pb-2 overflow-x-auto">
           <Link href="/maintenance?tab=electrical" className={`px-3 md:px-4 py-2 font-medium cursor-pointer transition-colors whitespace-nowrap ${
             activeTab === "electrical" 
@@ -109,8 +162,7 @@ function ElectricalContent() {
             Plumbing
           </Link>
         </div>
-
-        {/* Insights Section */}
+        
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <Card>
             <CardContent className="p-4">
@@ -183,7 +235,69 @@ function ElectricalContent() {
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 />
               </div>
-              <Button type="submit" className="w-full">Submit Complaint</Button>
+              <div className="space-y-2">
+                <Label htmlFor="priority">Priority</Label>
+                <select
+                  id="priority"
+                  className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
+                  value={formData.priority}
+                  onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
+                >
+                  <option value="Low">Low</option>
+                  <option value="Medium">Medium</option>
+                  <option value="High">High</option>
+                  <option value="Urgent">Urgent</option>
+                </select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="photo">Photo Proof (Optional)</Label>
+                {photoPreview ? (
+                  <div className="relative inline-block">
+                    <Image
+                      src={photoPreview}
+                      alt="Preview"
+                      width={200}
+                      height={200}
+                      className="rounded-lg object-cover border-2 border-gray-200"
+                    />
+                    <button
+                      type="button"
+                      onClick={removePhoto}
+                      className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-4">
+                    <label
+                      htmlFor="photo"
+                      className="flex items-center gap-2 px-4 py-2 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-primary hover:bg-primary/5 transition-colors"
+                    >
+                      <Upload className="w-5 h-5 text-gray-500" />
+                      <span className="text-gray-600">Upload Photo</span>
+                      <input
+                        type="file"
+                        id="photo"
+                        accept="image/jpeg,image/png,image/gif,image/webp"
+                        onChange={handlePhotoChange}
+                        className="hidden"
+                      />
+                    </label>
+                    <span className="text-sm text-gray-500">Max 5MB (JPEG, PNG, GIF, WebP)</span>
+                  </div>
+                )}
+              </div>
+              <Button type="submit" className="w-full" disabled={uploading}>
+                {uploading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Submitting...
+                  </>
+                ) : (
+                  "Submit Complaint"
+                )}
+              </Button>
             </form>
           </CardContent>
         </Card>
@@ -214,6 +328,19 @@ function ElectricalContent() {
                           <span>•</span>
                           <span>{new Date(request.submittedAt).toLocaleDateString()}</span>
                         </div>
+                        {request.photoUrl && (
+                          <div className="mt-3">
+                            <a href={request.photoUrl} target="_blank" rel="noopener noreferrer">
+                              <Image
+                                src={request.photoUrl}
+                                alt="Issue photo"
+                                width={100}
+                                height={100}
+                                className="rounded-lg object-cover border border-gray-200 hover:opacity-80 transition-opacity"
+                              />
+                            </a>
+                          </div>
+                        )}
                       </div>
                       <div className="flex gap-2">
                         <Badge variant={

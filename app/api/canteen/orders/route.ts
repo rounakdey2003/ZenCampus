@@ -3,15 +3,24 @@ import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/auth-middleware";
 import CanteenOrder from "@/models/CanteenOrder";
 
-export const GET = requireAuth(async (request: NextRequest, session: unknown) => {
+export const GET = requireAuth(async (request: NextRequest) => {
   try {
     await connectDB();
     
     const searchParams = request.nextUrl.searchParams;
     const status = searchParams.get("status");
     const studentUSN = searchParams.get("usn");
+    const search = searchParams.get("search");
     
-    const query: Record<string, string> = {};
+    const query: Record<string, unknown> = {};
+    
+    if (search) {
+      query.$or = [
+        { studentName: { $regex: search, $options: "i" } },
+        { studentUSN: { $regex: search, $options: "i" } },
+        { roomNumber: { $regex: search, $options: "i" } },
+      ];
+    }
     
     if (studentUSN) {
       query.studentUSN = studentUSN;
@@ -32,7 +41,7 @@ export const GET = requireAuth(async (request: NextRequest, session: unknown) =>
   }
 });
 
-export const POST = requireAuth(async (request: NextRequest, session: unknown) => {
+export const POST = requireAuth(async (request: NextRequest) => {
   try {
     await connectDB();
     

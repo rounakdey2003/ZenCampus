@@ -54,7 +54,7 @@ export const PUT = async (
     const { usn } = await params;
     const body = await request.json();
 
-    const { password, role, _id, ...updateData } = body;
+    const { ...updateData } = body;
 
     if (updateData.bloodGroup) {
       const validBloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];

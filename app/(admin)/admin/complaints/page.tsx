@@ -29,7 +29,7 @@ export default function ComplaintsManagementPage() {
   const { data: complaints, loading, error, refetch, put } = useApi<Complaint[]>("/api/maintenance");
 
   useEffect(() => {
-    const params: Record<string, string> = { type: "warden" }; // Fetch only warden complaints
+    const params: Record<string, string> = { type: "warden" };
     if (searchQuery) params.search = searchQuery;
     if (statusFilter !== "all") params.status = statusFilter;
     refetch(params);

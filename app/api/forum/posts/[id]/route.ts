@@ -91,6 +91,7 @@ export const PUT = async (
     }
     
     const post = await ForumPost.findByIdAndUpdate(
+      id,
       { ...body, lastActivity: new Date() },
       { new: true }
     );

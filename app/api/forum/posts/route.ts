@@ -3,15 +3,25 @@ import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/auth-middleware";
 import ForumPost from "@/models/ForumPost";
 
-export const GET = requireAuth(async (request: NextRequest, session: unknown) => {
+export const GET = requireAuth(async (request: NextRequest) => {
   try {
     await connectDB();
     
     const searchParams = request.nextUrl.searchParams;
     const category = searchParams.get("category");
     const status = searchParams.get("status");
+    const search = searchParams.get("search");
     
     const query: Record<string, unknown> = {};
+    
+    if (search) {
+      query.$or = [
+        { title: { $regex: search, $options: "i" } },
+        { content: { $regex: search, $options: "i" } },
+        { author: { $regex: search, $options: "i" } },
+        { authorUSN: { $regex: search, $options: "i" } },
+      ];
+    }
     
     if (category && category !== "all") {
       query.category = category;
@@ -33,7 +43,7 @@ export const GET = requireAuth(async (request: NextRequest, session: unknown) =>
   }
 });
 
-export const POST = requireAuth(async (request: NextRequest, session: unknown) => {
+export const POST = requireAuth(async (request: NextRequest) => {
   try {
     await connectDB();
     

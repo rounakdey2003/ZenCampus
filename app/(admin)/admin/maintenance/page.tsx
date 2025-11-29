@@ -13,7 +13,9 @@ import {
   Droplet,
   Hammer,
   Loader2,
+  ImageIcon,
 } from "lucide-react";
+import Image from "next/image";
 import { useApi } from "@/hooks/useApi";
 import { toast } from "sonner";
 
@@ -29,6 +31,7 @@ interface MaintenanceRequest {
   priority: "Low" | "Medium" | "High" | "Urgent";
   submittedAt: string;
   assignedTo?: string;
+  photoUrl?: string;
 }
 
 export default function MaintenanceManagementPage() {
@@ -105,13 +108,11 @@ export default function MaintenanceManagementPage() {
 
   return (
     <div className="p-4 md:p-8 space-y-6">
-      {/* Header */}
       <div>
         <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Maintenance Management</h1>
         <p className="text-gray-600 mt-1">Manage and track all maintenance requests</p>
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         <Card>
           <CardContent className="p-4">
@@ -159,7 +160,6 @@ export default function MaintenanceManagementPage() {
         </Card>
       </div>
 
-      {/* Filters */}
       <Card>
         <CardContent className="p-4">
           <div className="flex flex-col md:flex-row gap-4">
@@ -198,7 +198,6 @@ export default function MaintenanceManagementPage() {
         </CardContent>
       </Card>
 
-      {/* Requests Table */}
       <Card>
         <CardHeader>
           <CardTitle>Maintenance Requests ({filteredRequests.length})</CardTitle>
@@ -243,6 +242,12 @@ export default function MaintenanceManagementPage() {
                           <span>Student: {request.studentName}</span>
                           <span>Submitted: {new Date(request.submittedAt).toLocaleDateString()} {new Date(request.submittedAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
                           {request.assignedTo && <span className="text-primary">Assigned to: {request.assignedTo}</span>}
+                          {request.photoUrl && (
+                            <span className="flex items-center gap-1 text-blue-600">
+                              <ImageIcon className="w-4 h-4" />
+                              Photo attached
+                            </span>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -280,7 +285,6 @@ export default function MaintenanceManagementPage() {
         </CardContent>
       </Card>
 
-      {/* Details Modal */}
       {showDetailsModal && selectedRequest && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
           <div className="bg-card rounded-xl p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-border shadow-lg">
@@ -321,6 +325,25 @@ export default function MaintenanceManagementPage() {
                 <h4 className="font-semibold mb-2">Description</h4>
                 <p className="text-foreground">{selectedRequest.description}</p>
               </div>
+
+              {selectedRequest.photoUrl && (
+                <div className="pt-4 border-t">
+                  <h4 className="font-semibold mb-2 flex items-center gap-2">
+                    <ImageIcon className="w-5 h-5" />
+                    Photo Proof
+                  </h4>
+                  <a href={selectedRequest.photoUrl} target="_blank" rel="noopener noreferrer">
+                    <Image
+                      src={selectedRequest.photoUrl}
+                      alt="Issue photo proof"
+                      width={400}
+                      height={300}
+                      className="rounded-lg object-cover border border-border hover:opacity-90 transition-opacity cursor-pointer"
+                    />
+                  </a>
+                  <p className="text-sm text-muted-foreground mt-2">Click image to view full size</p>
+                </div>
+              )}
 
               <div className="grid grid-cols-2 gap-4 pt-4 border-t">
                 <div>
@@ -372,7 +395,6 @@ export default function MaintenanceManagementPage() {
         </div>
       )}
 
-      {/* Assign Modal */}
       {showAssignModal && selectedRequest && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-xl p-6 max-w-md w-full">

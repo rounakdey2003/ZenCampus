@@ -86,7 +86,7 @@ function StudentContent() {
   const [selectedPost, setSelectedPost] = useState<ForumPost | null>(null);
   const [viewMode, setViewMode] = useState<"view" | "reply">("view");
   const [discussionForm, setDiscussionForm] = useState({ title: "", content: "", category: "General" });
-  const [complaintForm, setComplaintForm] = useState({ description: "" });
+  const [complaintForm, setComplaintForm] = useState({ description: "", priority: "Medium" });
   const [pollForm, setPollForm] = useState({ question: "", options: ["", ""], expiresAt: "" });
 
   const { data: forumPosts, loading: postsLoading, refetch: refetchPosts, post: postDiscussion, put: putPost } = useApi<ForumPost[]>("/api/forum/posts");
@@ -207,11 +207,11 @@ function StudentContent() {
         title: "Warden Complaint",
         description: complaintForm.description,
         isAnonymous: false,
-        priority: "Medium",
+        priority: complaintForm.priority,
         status: "Pending",
       });
       toast.success("Complaint submitted successfully!");
-      setComplaintForm({ description: "" });
+      setComplaintForm({ description: "", priority: "Medium" });
       setShowComplaintModal(false);
       refetchComplaints({ type: "warden", usn: studentUSN });
     } catch {
@@ -278,7 +278,7 @@ function StudentContent() {
     <div>
       <DashboardHeader title="ZenStudent" />
       
-      <div className="p-8 space-y-6">        {/* Insights Section */}
+      <div className="p-8 space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <Card>
             <CardContent className="p-4">
@@ -312,7 +312,7 @@ function StudentContent() {
               </p>
             </CardContent>
           </Card>
-        </div>        {/* Tab Navigation */}
+        </div>        
         <div className="flex gap-4 border-b pb-2">
           <Link href="/student?tab=discussions" className={cn(
             "px-4 py-2 font-medium cursor-pointer transition-colors",
@@ -342,8 +342,7 @@ function StudentContent() {
             Polls
           </Link>
         </div>
-
-        {/* Discussions Tab */}
+        
         {activeTab === "discussions" && (
           <div className="space-y-4">
             <div className="flex justify-between items-center">
@@ -391,8 +390,7 @@ function StudentContent() {
                         </div>
                         <Badge variant="outline">{post.category}</Badge>
                       </div>
-                      
-                      {/* Replies Preview */}
+                                            
                       {post.replies && post.replies.length > 0 && (
                         <div className="mt-4 pt-4 border-t space-y-3">
                           <p className="text-sm font-medium text-muted-foreground">Recent Replies ({post.replies.length})</p>
@@ -449,8 +447,7 @@ function StudentContent() {
             )}
           </div>
         )}
-
-        {/* Warden Complaints Tab */}
+        
         {activeTab === "warden" && (
           <div className="space-y-4">
             <div className="flex justify-between items-center">
@@ -515,7 +512,6 @@ function StudentContent() {
           </div>
         )}
 
-        {/* Polls Tab */}
         {activeTab === "polls" && (
           <div className="space-y-4">
             <div className="flex justify-between items-center">
@@ -620,7 +616,6 @@ function StudentContent() {
         )}
       </div>
 
-      {/* New Discussion Modal */}
       <Modal 
         isOpen={showDiscussionModal} 
         onClose={() => setShowDiscussionModal(false)}
@@ -673,7 +668,6 @@ function StudentContent() {
         </ModalFooter>
       </Modal>
 
-      {/* New Complaint Modal */}
       <Modal 
         isOpen={showComplaintModal} 
         onClose={() => setShowComplaintModal(false)}
@@ -694,6 +688,20 @@ function StudentContent() {
                 onChange={(e) => setComplaintForm({ ...complaintForm, description: e.target.value })}
               />
             </div>
+            <div className="space-y-2">
+              <Label htmlFor="complaint-priority">Priority</Label>
+              <select
+                id="complaint-priority"
+                className="w-full px-4 py-2 border rounded-lg bg-background text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                value={complaintForm.priority}
+                onChange={(e) => setComplaintForm({ ...complaintForm, priority: e.target.value })}
+              >
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+                <option value="Urgent">Urgent</option>
+              </select>
+            </div>
           </div>
         </ModalBody>
         <ModalFooter>
@@ -702,7 +710,6 @@ function StudentContent() {
         </ModalFooter>
       </Modal>
 
-      {/* Create Poll Modal */}
       <Modal 
         isOpen={showPollModal} 
         onClose={() => setShowPollModal(false)}
@@ -777,7 +784,6 @@ function StudentContent() {
         </ModalFooter>
       </Modal>
 
-      {/* Reply Modal */}
       <Modal 
         isOpen={showReplyModal && !!selectedPost} 
         onClose={() => setShowReplyModal(false)}
@@ -806,7 +812,6 @@ function StudentContent() {
             </ModalHeader>
             <ModalBody className="flex-1 overflow-y-auto">
               <div className="space-y-4">
-                {/* Original Post */}
                 <div className="bg-primary/5 border border-primary/20 p-4 rounded-lg">
                   <div className="flex items-start justify-between mb-2">
                     <div>
@@ -832,7 +837,6 @@ function StudentContent() {
                   </div>
                 </div>
 
-                {/* All Replies - Only shown in VIEW mode */}
                 {viewMode === "view" && (
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
@@ -886,7 +890,6 @@ function StudentContent() {
                   </div>
                 )}
 
-                {/* Reply Input - Only shown in REPLY mode */}
                 {viewMode === "reply" && (
                   <div className="space-y-2 pt-4 border-t">
                     <Label htmlFor="reply" className="text-sm font-semibold">Add Your Reply</Label>

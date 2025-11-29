@@ -119,8 +119,7 @@ export default function AdminTimetablePage() {
           </CardContent>
         </Card>
       </div>
-
-      {/* Add Entry Modal */}
+      
       {showAddModal && (
         <div
           className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"

@@ -204,7 +204,6 @@ function WashingContent() {
       <DashboardHeader title="ZenWash" />
       
       <div className="p-8 space-y-6">
-        {/* Admin Notice Message */}
         {settings?.laundryNotice && (
           <Card className="bg-blue-50 border-blue-200">
             <CardContent className="p-4">
@@ -221,7 +220,6 @@ function WashingContent() {
           </Card>
         )}
 
-        {/* Tab Navigation */}
         <div className="flex gap-4 border-b pb-2">
           <Link href="/washing?tab=washing" className={cn(
             "px-4 py-2 font-medium cursor-pointer transition-colors",
@@ -243,7 +241,6 @@ function WashingContent() {
           </Link>
         </div>
 
-        {/* Insights Section */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <Card>
             <CardContent className="p-4">
@@ -277,7 +274,6 @@ function WashingContent() {
           </Card>
         </div>
 
-        {/* Timetable Section */}
         <TimetableDisplay type={activeTab === "washing" ? "Washing" : "Dryer"} />
 
         <Card>
@@ -306,7 +302,7 @@ function WashingContent() {
                   {activeTab === "washing" ? "Select Machine" : "Select Dryer"}
                 </label>
                 <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
-                  {(activeTab === "washing" ? [1, 2, 3, 4, 5, 6] : [1, 2, 3]).map((machine) => {
+                  {Array.from({ length: activeTab === "washing" ? (settings?.washingMachines || 6) : (settings?.dryers || 3) }, (_, i) => i + 1).map((machine) => {
                     const status = machineStatuses[machine] || "Available";
                     const isDisabled = status === "Faulty" || status === "Repairing";
                     

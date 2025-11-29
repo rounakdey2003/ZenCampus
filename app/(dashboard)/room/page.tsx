@@ -108,8 +108,7 @@ function RoomContent() {
     <div>
       <DashboardHeader title="ZenCleaning" />
       
-      <div className="p-8 space-y-6">
-        {/* Tab Navigation */}
+      <div className="p-8 space-y-6">        
         <div className="flex gap-4 border-b pb-2">
           <Link href="/room?tab=room" className={`px-4 py-2 font-medium cursor-pointer transition-colors ${
             activeTab === "room" 
@@ -128,8 +127,7 @@ function RoomContent() {
             Bathroom
           </Link>
         </div>
-
-        {/* Insights Section */}
+        
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <Card>
             <CardContent className="p-4">

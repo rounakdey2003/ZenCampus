@@ -130,8 +130,7 @@ export default function ProfilePage() {
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 gap-6">
-            {/* Personal Details Card */}
+          <div className="grid grid-cols-1 gap-6">            
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -167,8 +166,7 @@ export default function ProfilePage() {
                 </div>
               </CardContent>
             </Card>
-
-            {/* Emergency Contact Card */}
+            
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -196,8 +194,7 @@ export default function ProfilePage() {
           </div>
         </div>
       </div>
-
-      {/* Edit Modal */}
+      
       {showEditModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 overflow-y-auto">
           <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto my-8">
@@ -211,8 +208,7 @@ export default function ProfilePage() {
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="p-4 md:p-6 space-y-6">
-              {/* Personal Details */}
+            <form onSubmit={handleSubmit} className="p-4 md:p-6 space-y-6">              
               <div className="space-y-4">
                 <h4 className="font-semibold text-lg flex items-center gap-2">
                   <Calendar className="w-5 h-5" />
@@ -269,7 +265,6 @@ export default function ProfilePage() {
                 </div>
               </div>
 
-              {/* Emergency Contact */}
               <div className="space-y-4">
                 <h4 className="font-semibold text-lg flex items-center gap-2">
                   <Phone className="w-5 h-5" />
@@ -313,9 +308,7 @@ export default function ProfilePage() {
                     />
                   </div>
                 </div>
-              </div>
-
-              {/* Action Buttons */}
+              </div>              
               <div className="flex gap-3 justify-end pt-4 border-t">
                 <Button
                   type="button"

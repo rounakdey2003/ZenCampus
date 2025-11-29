@@ -138,7 +138,6 @@ export default function CanteenManagementPage() {
         <p className="text-gray-600 mt-1">Manage menu items and orders</p>
       </div>
 
-      {/* Settings Info Banner */}
       {settings && (
         <Card className="bg-amber-500/10 border-amber-500/20">
           <CardContent className="p-4">

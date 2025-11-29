@@ -3,14 +3,23 @@ import connectDB from "@/lib/db";
 import { requireAuth } from "@/lib/auth-middleware";
 import Poll from "@/models/Poll";
 
-export const GET = requireAuth(async (request: NextRequest, session: unknown) => {
+export const GET = requireAuth(async (request: NextRequest) => {
   try {
     await connectDB();
     
     const searchParams = request.nextUrl.searchParams;
     const status = searchParams.get("status");
+    const search = searchParams.get("search");
     
-    const query: Record<string, string> = {};
+    const query: Record<string, unknown> = {};
+    
+    if (search) {
+      query.$or = [
+        { question: { $regex: search, $options: "i" } },
+        { createdBy: { $regex: search, $options: "i" } },
+        { createdByName: { $regex: search, $options: "i" } },
+      ];
+    }
     
     if (status && status !== "all") {
       query.status = status;
@@ -27,7 +36,7 @@ export const GET = requireAuth(async (request: NextRequest, session: unknown) =>
   }
 });
 
-export const POST = requireAuth(async (request: NextRequest, session: unknown) => {
+export const POST = requireAuth(async (request: NextRequest) => {
   try {
     await connectDB();
     

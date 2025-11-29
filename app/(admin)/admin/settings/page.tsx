@@ -179,7 +179,6 @@ export default function SettingsPage() {
         </Button>
       </div>
 
-      {/* Info Banner */}
       <Card className="bg-blue-50 border-blue-200">
         <CardContent className="p-4">
           <div className="flex items-start gap-3">

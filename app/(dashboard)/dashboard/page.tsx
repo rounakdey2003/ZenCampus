@@ -204,8 +204,7 @@ export default function DashboardPage() {
     <div>
       <DashboardHeader title="Dashboard" />
       
-      <div className="p-4 md:p-8 space-y-6 md:space-y-8">
-        {/* Header with Live Data Indicator */}
+      <div className="p-4 md:p-8 space-y-6 md:space-y-8">        
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h3 className="text-2xl font-bold">My Campus Services</h3>
@@ -227,11 +226,9 @@ export default function DashboardPage() {
             <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
           </div>
         ) : (
-          <>
-            {/* Module Insights */}
+          <>            
             <div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* ZenWash */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">            
             <Card className="hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
                 <div className="flex items-start justify-between mb-4">
@@ -271,8 +268,7 @@ export default function DashboardPage() {
                 </div>
               </CardContent>
             </Card>
-
-            {/* ZenMaintenance */}
+            
             <Card className="hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
                 <div className="flex items-start justify-between mb-4">
@@ -316,8 +312,7 @@ export default function DashboardPage() {
                 </div>
               </CardContent>
             </Card>
-
-            {/* ZenCleaning */}
+            
             <Card className="hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
                 <div className="flex items-start justify-between mb-4">
@@ -351,8 +346,7 @@ export default function DashboardPage() {
                 </div>
               </CardContent>
             </Card>
-
-            {/* ZenCanteen */}
+            
             <Card className="hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
                 <div className="flex items-start justify-between mb-4">
@@ -383,8 +377,7 @@ export default function DashboardPage() {
                 </div>
               </CardContent>
             </Card>
-
-            {/* ZenStudent */}
+            
             <Card className="hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
                 <div className="flex items-start justify-between mb-4">
@@ -422,7 +415,6 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
 
-            {/* ZenNotice */}
             <Card className="hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
                 <div className="flex items-start justify-between mb-4">

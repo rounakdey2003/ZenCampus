@@ -82,7 +82,7 @@ export default function CleaningManagementPage() {
     if (filterStatus !== "All") params.status = filterStatus;
     if (filterType !== "All") params.type = filterType;
     refetchCleaning(params);
-    refetchRoom({ ...params, type: "room" }); // Fetch room complaints from maintenance API
+    refetchRoom({ ...params, type: "room" });
   }, [searchQuery, filterStatus, filterType, refetchCleaning, refetchRoom]);
 
   const allRequests: CleaningRequest[] = [
@@ -215,13 +215,11 @@ export default function CleaningManagementPage() {
       variants={containerVariants}
       className="p-4 md:p-8 space-y-8 max-w-7xl mx-auto"
     >
-      {/* Header */}
       <motion.div variants={itemVariants} className="flex flex-col gap-2">
         <h1 className="text-4xl font-bold tracking-tight text-foreground">Cleaning Management</h1>
         <p className="text-muted-foreground text-lg">Manage room and bathroom cleaning requests efficiently.</p>
       </motion.div>
 
-      {/* Stats */}
       <motion.div variants={itemVariants} className="grid grid-cols-2 md:grid-cols-5 gap-4">
         {[
           { label: "Total Requests", value: stats.total, icon: Package, color: "text-foreground", bg: "bg-secondary/50" },
@@ -246,7 +244,6 @@ export default function CleaningManagementPage() {
         ))}
       </motion.div>
 
-      {/* Filters */}
       <motion.div variants={itemVariants}>
         <Card className="border-none shadow-soft">
           <CardContent className="p-6">
@@ -293,7 +290,6 @@ export default function CleaningManagementPage() {
         </Card>
       </motion.div>
 
-      {/* Requests Table */}
       <motion.div variants={itemVariants}>
         <Card className="border-none shadow-medium overflow-hidden">
           <CardHeader className="bg-secondary/30 border-b border-border/50">
@@ -425,7 +421,6 @@ export default function CleaningManagementPage() {
         </Card>
       </motion.div>
 
-      {/* Details Modal */}
       <Modal 
         isOpen={showDetailsModal} 
         onClose={() => setShowDetailsModal(false)}
@@ -545,7 +540,6 @@ export default function CleaningManagementPage() {
         )}
       </Modal>
 
-      {/* Schedule Modal */}
       <Modal 
         isOpen={showScheduleModal} 
         onClose={() => setShowScheduleModal(false)}

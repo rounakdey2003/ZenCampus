@@ -129,7 +129,6 @@ export default function LaundryManagementPage() {
 
   return (
     <div className="p-4 md:p-8 space-y-6">
-      {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Laundry Management</h1>
@@ -141,7 +140,6 @@ export default function LaundryManagementPage() {
         </Button>
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         <Card>
           <CardContent className="p-4">
@@ -204,7 +202,6 @@ export default function LaundryManagementPage() {
         </Card>
       </div>
 
-      {/* Machine Status Overview */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
@@ -323,7 +320,6 @@ export default function LaundryManagementPage() {
         </Card>
       </div>
 
-      {/* Filters */}
       <Card>
         <CardContent className="p-4">
           <div className="flex flex-col md:flex-row gap-4">
@@ -362,7 +358,6 @@ export default function LaundryManagementPage() {
         </CardContent>
       </Card>
 
-      {/* Bookings Table */}
       <Card>
         <CardHeader>
           <CardTitle>Bookings ({filteredBookings.length})</CardTitle>
@@ -433,7 +428,6 @@ export default function LaundryManagementPage() {
         </CardContent>
       </Card>
 
-      {/* Machine Settings Modal */}
       {showMachineModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-xl p-6 max-w-md w-full">
@@ -518,7 +512,6 @@ export default function LaundryManagementPage() {
         </div>
       )}
 
-      {/* Details Modal */}
       {showDetailsModal && selectedBooking && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-xl p-6 max-w-2xl w-full">

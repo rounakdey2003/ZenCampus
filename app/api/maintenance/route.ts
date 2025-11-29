@@ -3,7 +3,7 @@ import connectDB from "@/lib/db";
 import Maintenance from "@/models/Maintenance";
 import { requireAuth } from "@/lib/auth-middleware";
 
-export const GET = requireAuth(async (request: NextRequest, session: unknown) => {
+export const GET = requireAuth(async (request: NextRequest) => {
   try {
     await connectDB();
 
@@ -47,7 +47,7 @@ export const GET = requireAuth(async (request: NextRequest, session: unknown) =>
   }
 });
 
-export const POST = requireAuth(async (request: NextRequest, session: unknown) => {
+export const POST = requireAuth(async (request: NextRequest) => {
   try {
     await connectDB();
 

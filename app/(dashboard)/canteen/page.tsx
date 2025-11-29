@@ -132,8 +132,7 @@ function CanteenContent() {
     <div>
       <DashboardHeader title="Canteen" />
       
-      <div className="p-4 md:p-8 space-y-6">
-        {/* Tab Navigation */}
+      <div className="p-4 md:p-8 space-y-6">        
         <div className="flex gap-2 md:gap-4 border-b pb-2 overflow-x-auto">
           <Link href="/canteen?tab=menu" className={`px-3 md:px-4 py-2 font-medium cursor-pointer transition-colors whitespace-nowrap ${
             activeTab === "menu" 
@@ -152,8 +151,7 @@ function CanteenContent() {
             Orders
           </Link>
         </div>
-
-        {/* Insights Section */}
+        
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <Card>
             <CardContent className="p-4">
@@ -186,8 +184,7 @@ function CanteenContent() {
             </CardContent>
           </Card>
         </div>
-
-        {/* Menu Tab */}
+        
         {activeTab === "menu" && (
           <>
             <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
@@ -332,8 +329,7 @@ function CanteenContent() {
             </div>
           </>
         )}
-
-        {/* Past Orders Tab */}
+        
         {activeTab === "orders" && (
           <div className="space-y-4">
             <div className="flex items-center justify-between">
