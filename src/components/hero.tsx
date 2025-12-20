@@ -44,7 +44,7 @@ export function Hero() {
               Explore Products <FaArrowRight />
             </Link>
             <Link
-              href="https://github.com/rounakdey2003/ZenCampusPromo"
+              href="https://github.com/rounakdey2003/ZenCampus"
               target="_blank"
               className="px-8 py-4 glass text-foreground rounded-full font-medium text-lg hover:bg-white/20 dark:hover:bg-white/10 transition-all flex items-center justify-center gap-2"
             >

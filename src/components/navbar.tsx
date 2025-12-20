@@ -65,7 +65,7 @@ export function Navbar() {
             <div className="w-px h-6 bg-border mx-2"></div>
 
             <Link
-              href="https://github.com/rounakdey2003/ZenCampusPromo"
+              href="https://github.com/rounakdey2003/ZenCampus"
               target="_blank"
               className="text-muted-foreground hover:text-foreground transition-all hover:scale-110 active:scale-95"
             >

@@ -41,7 +41,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="https://github.com/rounakdey2003/ZenCampusPromo"
+                  href="https://github.com/rounakdey2003/ZenCampus"
                   className="hover:text-foreground transition-colors"
                 >
                   Documentation
@@ -54,7 +54,7 @@ export function Footer() {
             <ul className="space-y-3 text-muted-foreground text-sm">
               <li>
                 <Link
-                  href="https://github.com/rounakdey2003/ZenCampusPromo"
+                  href="https://github.com/rounakdey2003/ZenCampus"
                   className="hover:text-foreground transition-colors"
                 >
                   GitHub
