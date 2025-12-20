@@ -340,8 +340,3 @@ Guidelines:
 - DB: `lib/db.ts`
 - Models: `models/*` (entities)
 - APIs: `api/*/route.ts`
-
----
-
-```
-
