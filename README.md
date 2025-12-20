@@ -1,13 +1,10 @@
 # Link: https://zencampus.netlify.app/
-<<<<<<< HEAD
-=======
 
 ---
 
 # ZenCampus
 
 Smart campus management web application built with Next.js (App Router), TypeScript and Tailwind CSS. ZenCampus provides admin and student dashboards, canteen ordering, laundry management, maintenance, forums, notices, polls and more.
->>>>>>> ae14989a9e36981316c72a83dfd2d5455956b0f7
 
 ---
 
@@ -757,7 +754,5 @@ Built with ❤️ using Next.js, React, TypeScript, and Tailwind CSS.
 - DB: `lib/db.ts`
 - Models: `models/*` (entities)
 - APIs: `api/*/route.ts`
-<<<<<<< HEAD
->>>>>>> ae14989a9e36981316c72a83dfd2d5455956b0f7
-=======
->>>>>>> ae14989a9e36981316c72a83dfd2d5455956b0f7
+
+---
