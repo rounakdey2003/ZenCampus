@@ -32,7 +32,7 @@ export default function ZenConnect() {
                 Collaborate and discuss. Join student forums, ask questions to experts, and build meaningful networks across campus.
               </p>
               <div className="flex gap-4">
-                <a href="#" target="_blank" rel="noopener noreferrer">
+                <a href="https://zencampusconnect.netlify.app/login" target="_blank" rel="noopener noreferrer">
                   <button className="px-8 py-3 bg-pink-600 hover:bg-pink-700 text-white rounded-full font-bold shadow-lg shadow-pink-500/25 transition-all hover:scale-105 active:scale-95">
                     Start Discussing
                   </button>

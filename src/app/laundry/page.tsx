@@ -32,7 +32,7 @@ export default function ZenLaundry() {
                 No more waiting in lines or hunting for coins. Check machine availability in real-time, book slots, and get notified when your clothes are done.
               </p>
               <div className="flex gap-4">
-                <a href="https://zenwash.netlify.app/login" target="_blank" rel="noopener noreferrer">
+                <a href="https://zencampuswash.netlify.app/login" target="_blank" rel="noopener noreferrer">
                   <button className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-bold shadow-lg shadow-blue-500/25 transition-all hover:scale-105 active:scale-95">
                     Get Started
                   </button>

@@ -32,7 +32,7 @@ export default function ZenNotice() {
                 Stay informed instantly. Real-time updates, official announcements, and categorized alerts so you never miss a deadline.
               </p>
               <div className="flex gap-4">
-                <a href="#" target="_blank" rel="noopener noreferrer">
+                <a href="https://zencampusnotice.netlify.app/login" target="_blank" rel="noopener noreferrer">
                   <button className="px-8 py-3 bg-yellow-600 hover:bg-yellow-700 text-white rounded-full font-bold shadow-lg shadow-yellow-500/25 transition-all hover:scale-105 active:scale-95">
                     Start Browsing
                   </button>

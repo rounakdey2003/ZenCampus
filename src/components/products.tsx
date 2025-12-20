@@ -4,12 +4,12 @@ import Link from "next/link";
 
 const products = [
   {
-    id: "laundry",
-    name: "ZenWash",
-    description: "Smart laundry management system. Track machines, schedule washes, and pay effortlessly.",
-    icon: FaJugDetergent,
-    color: "from-blue-400 to-cyan-300",
-    link: "/laundry"
+    id: "campus",
+    name: "ZenCampus",
+    description: "The central hub connecting everything. Academic notices, events, and unified control.",
+    icon: FaGraduationCap,
+    color: "from-indigo-400 to-purple-300",
+    link: "/campus"
   },
   {
     id: "canteen",
@@ -20,20 +20,20 @@ const products = [
     link: "/canteen"
   },
   {
+    id: "laundry",
+    name: "ZenWash",
+    description: "Smart laundry management system. Track machines, schedule washes, and pay effortlessly.",
+    icon: FaJugDetergent,
+    color: "from-blue-400 to-cyan-300",
+    link: "/laundry"
+  },
+  {
     id: "maintenance",
     name: "ZenFix",
     description: "Effortless facility handling. Report issues, track tickets, and ensure a better campus environment.",
     icon: FaScrewdriverWrench,
     color: "from-slate-400 to-gray-300",
     link: "/maintenance"
-  },
-  {
-    id: "campus",
-    name: "ZenCampus",
-    description: "The central hub connecting everything. Academic notices, events, and unified control.",
-    icon: FaGraduationCap,
-    color: "from-indigo-400 to-purple-300",
-    link: "/campus"
   },
   {
     id: "notice",

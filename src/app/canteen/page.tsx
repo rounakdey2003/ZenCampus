@@ -32,7 +32,7 @@ export default function ZenCanteen() {
                 Skip the long lunch queues. Pre-order your meals, track your calorie intake, and enjoy a seamless dining experience on campus.
               </p>
               <div className="flex gap-4">
-                <a href="https://zencanteen.netlify.app/login" target="_blank" rel="noopener noreferrer">
+                <a href="https://zencampuscanteen.netlify.app/login" target="_blank" rel="noopener noreferrer">
                   <button className="px-8 py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-full font-bold shadow-lg shadow-orange-500/25 transition-all hover:scale-105 active:scale-95">
                     Get Started
                   </button>

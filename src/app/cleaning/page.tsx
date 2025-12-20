@@ -32,7 +32,7 @@ export default function ZenClean() {
                 Spotless rooms on demand. Schedule cleaning, track service status, and rate your experience for a better campus environment.
               </p>
               <div className="flex gap-4">
-                <a href="#" target="_blank" rel="noopener noreferrer">
+                <a href="https://zencampusclean.netlify.app/login" target="_blank" rel="noopener noreferrer">
                   <button className="px-8 py-3 bg-teal-600 hover:bg-teal-700 text-white rounded-full font-bold shadow-lg shadow-teal-500/25 transition-all hover:scale-105 active:scale-95">
                     Book Service
                   </button>

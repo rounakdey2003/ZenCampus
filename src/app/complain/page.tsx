@@ -32,7 +32,7 @@ export default function ZenResolve() {
                 Efficient grievance redressal. Report issues, track ticket status, and ensure your concerns are heard and resolved quickly.
               </p>
               <div className="flex gap-4">
-                <a href="#" target="_blank" rel="noopener noreferrer">
+                <a href="https://zencampusresolve.netlify.app/login" target="_blank" rel="noopener noreferrer">
                   <button className="px-8 py-3 bg-red-600 hover:bg-red-700 text-white rounded-full font-bold shadow-lg shadow-red-500/25 transition-all hover:scale-105 active:scale-95">
                     File a Report
                   </button>
