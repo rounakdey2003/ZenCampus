@@ -34,7 +34,7 @@ export default function ZenFix() {
               <div className="flex gap-4">
                 <a href="https://zencampusfix.netlify.app/login" target="_blank" rel="noopener noreferrer">
                   <button className="px-8 py-3 bg-slate-800 hover:bg-slate-900 text-white dark:bg-slate-700 dark:hover:bg-slate-600 rounded-full font-bold shadow-lg shadow-slate-500/25 transition-all hover:scale-105 active:scale-95">
-                    Get Started
+                    Book Service
                   </button>
                 </a>
               </div>

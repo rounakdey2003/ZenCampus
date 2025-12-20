@@ -34,7 +34,7 @@ export default function ZenCanteen() {
               <div className="flex gap-4">
                 <a href="https://zencampuscanteen.netlify.app/login" target="_blank" rel="noopener noreferrer">
                   <button className="px-8 py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-full font-bold shadow-lg shadow-orange-500/25 transition-all hover:scale-105 active:scale-95">
-                    Get Started
+                    Order Now
                   </button>
                 </a>                
               </div>

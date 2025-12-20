@@ -34,7 +34,7 @@ export default function ZenLaundry() {
               <div className="flex gap-4">
                 <a href="https://zencampuswash.netlify.app/login" target="_blank" rel="noopener noreferrer">
                   <button className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-bold shadow-lg shadow-blue-500/25 transition-all hover:scale-105 active:scale-95">
-                    Get Started
+                    Book Now
                   </button>
                 </a>
               </div>
